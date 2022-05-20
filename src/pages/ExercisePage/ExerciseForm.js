@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import ExerciseTypeToggle from './ExerciseTypeToggle';
 
 const ExerciseForm = () => {
-  let exercise_types = ['Chest', 'Back', 'Arms', 'Shoulders', 'Legs', 'Core', 'Cardio'];
   let exercise_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let [exerciseData, setExerciseData] = useState({});
 
@@ -32,11 +32,7 @@ const ExerciseForm = () => {
             );
           })}
         </div>
-        <div>
-          {exercise_types.map((type, idx) => {
-            return <input key={idx} type="button" name={type} id={type} value={type} />;
-          })}
-        </div>
+        <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <input
           type="text"
           name="exercise_rep_measurement"
