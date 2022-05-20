@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import ExerciseDays from './ExerciseDays';
 import ExerciseTypeToggle from './ExerciseTypeToggle';
 import CardioSettingsForm from './CardioSettingsForm';
 
 const ExerciseForm = () => {
-  let exercise_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let [exerciseData, setExerciseData] = useState({
     exercise_name: '',
     exercise_days: [],
@@ -29,16 +29,7 @@ const ExerciseForm = () => {
           placeholder="Exercise Name"
           onChange={handleChange}
         />
-        <div>
-          {exercise_days.map((day, idx) => {
-            return (
-              <React.Fragment key={idx}>
-                <label>{day}</label>
-                <input type="checkbox" name={day} id={day} value={day} />
-              </React.Fragment>
-            );
-          })}
-        </div>
+        <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <input

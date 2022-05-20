@@ -11,7 +11,7 @@ const CardioSettingsForm = ({ exerciseData, setExerciseData }) => {
   };
 
   return (
-    <>
+    <div>
       {exerciseData.cardio_settings.map((setting, idx) => {
         return <span key={idx}>{setting}</span>;
       })}
@@ -22,7 +22,7 @@ const CardioSettingsForm = ({ exerciseData, setExerciseData }) => {
         onChange={(event) => setFormData(event.target.value)}
       />
       <button onClick={handleSubmit}>Add Cardio Setting</button>
-    </>
+    </div>
   );
 };
 
