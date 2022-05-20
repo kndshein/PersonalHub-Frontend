@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { isLoggedIn } from './util.js';
-import LoginPage from './pages/LoginPage';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage.js';
+import ExercisePage from './pages/ExercisePage.js';
 import './App.css';
 
 function App() {
-  let [showLogin, setShowLogin] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let is_logged_in = await isLoggedIn();
-      setShowLogin(!is_logged_in);
-    })();
-  }, []);
-
-  return <div className="App">{showLogin && <LoginPage />}</div>;
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/exercise" element={<ExercisePage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

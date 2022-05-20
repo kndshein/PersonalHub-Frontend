@@ -1,27 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const LoginPage = () => {
-  let [loginData, setLoginData] = useState({ email: '', password: '' });
-  let [loginErr, setLoginErr] = useState(null);
-
+const Login = ({ loginData, setLoginData, handleSubmit }) => {
   let handleChange = (event) => {
     setLoginData({ ...loginData, [event.target.name]: event.target.value });
-  };
-
-  let handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      let res = await axios({
-        method: 'POST',
-        url: `${process.env.REACT_APP_BACKEND_URL}/user/login`,
-        data: loginData,
-      });
-      localStorage.setItem('token', res.data.result.token);
-      if (loginErr) setLoginErr(null);
-    } catch (err) {
-      setLoginErr(err.response.data.message);
-    }
   };
 
   return (
@@ -45,9 +26,9 @@ const LoginPage = () => {
         />
         <input className="form-submit" type="submit" value="Login" />
       </form>
-      {loginErr && <p>{loginErr}</p>}
+      {loginData.err && <p>{loginData.err}</p>}
     </div>
   );
 };
 
-export default LoginPage;
+export default Login;
