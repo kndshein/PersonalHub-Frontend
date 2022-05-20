@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isLoggedIn } from '../util.js';
-import Login from '../components/Login.js';
+import { Link } from 'react-router-dom';
+import { isLoggedIn } from '../../util.js';
+import Login from './Login.js';
 
 const HomePage = () => {
   let [showLogin, setShowLogin] = useState(true);
   let [loginData, setLoginData] = useState({ email: '', password: '', err: null });
+  let [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       let is_logged_in = await isLoggedIn();
+      setLoading(false);
       setShowLogin(!is_logged_in);
     })();
   }, [showLogin]);
@@ -31,8 +34,14 @@ const HomePage = () => {
   };
   return (
     <>
-      {showLogin && (
-        <Login loginData={loginData} setLoginData={setLoginData} handleSubmit={handleLoginSubmit} />
+      {loading && <div>Loading</div>}
+      {!loading && (
+        <>
+          {showLogin && (
+            <Login loginData={loginData} setLoginData={setLoginData} handleSubmit={handleLoginSubmit} />
+          )}
+          {!showLogin && <Link to="/exercise">Exercise</Link>}
+        </>
       )}
     </>
   );
