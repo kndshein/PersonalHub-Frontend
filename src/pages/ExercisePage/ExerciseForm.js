@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ExerciseTypeToggle from './ExerciseTypeToggle';
+import CardioSettingsForm from './CardioSettingsForm';
 
 const ExerciseForm = () => {
   let exercise_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -8,7 +9,7 @@ const ExerciseForm = () => {
     exercise_days: [],
     exercise_type: '',
     exercise_rep_measurement: '',
-    cardio_settings: null,
+    cardio_settings: [],
   });
 
   let handleChange = (event) => {
@@ -39,6 +40,7 @@ const ExerciseForm = () => {
           })}
         </div>
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
+        <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <input
           type="text"
           name="exercise_rep_measurement"

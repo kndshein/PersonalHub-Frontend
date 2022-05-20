@@ -8,7 +8,7 @@ const ExerciseTypeToggle = ({ exerciseData, setExerciseData }) => {
     if (type === 'Cardio') {
       data.exercise_rep_measurement = '';
     } else {
-      data.cardio_settings = null;
+      data.cardio_settings = [];
     }
     setExerciseData(data);
   };
