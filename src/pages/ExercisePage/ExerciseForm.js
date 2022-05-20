@@ -3,7 +3,13 @@ import ExerciseTypeToggle from './ExerciseTypeToggle';
 
 const ExerciseForm = () => {
   let exercise_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  let [exerciseData, setExerciseData] = useState({});
+  let [exerciseData, setExerciseData] = useState({
+    exercise_name: '',
+    exercise_days: [],
+    exercise_type: '',
+    exercise_rep_measurement: '',
+    cardio_settings: null,
+  });
 
   let handleChange = (event) => {
     setExerciseData({ ...exerciseData, [event.target.name]: event.target.value });
