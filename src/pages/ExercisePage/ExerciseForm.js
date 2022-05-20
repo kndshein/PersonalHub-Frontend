@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ExerciseDays from './ExerciseDays';
 import ExerciseTypeToggle from './ExerciseTypeToggle';
 import CardioSettingsForm from './CardioSettingsForm';
+import { query } from '../../util';
 
 const ExerciseForm = () => {
   let [exerciseData, setExerciseData] = useState({
@@ -16,7 +17,22 @@ const ExerciseForm = () => {
     setExerciseData({ ...exerciseData, [event.target.name]: event.target.value });
   };
 
-  let handleSubmit = () => {};
+  let handleSubmit = async (event) => {
+    event.preventDefault();
+    let data = { ...exerciseData };
+    if (data.exercise_type === 'Cardio') {
+      delete data.exercise_rep_measurement;
+    } else {
+      delete data.cardio_settings;
+    }
+    let res = await query(
+      'POST',
+      `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise`,
+      true,
+      data
+    );
+    console.log(res);
+  };
 
   return (
     <div>

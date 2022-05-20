@@ -19,7 +19,7 @@ const ExercisePage = () => {
   return (
     <div>
       {exerciseList.map((exercise, idx) => {
-        return <ExerciseList />;
+        return <ExerciseList key={idx} exercise={exercise} />;
       })}
       <ExerciseForm />
     </div>

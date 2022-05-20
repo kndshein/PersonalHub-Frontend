@@ -23,7 +23,7 @@ const query = async (method, url, isTokenized, data) => {
     let res = await axios(query_data);
     return res.data.err ? res.data.err : res.data.result;
   } catch (err) {
-    return err;
+    return err.response.data;
   }
 };
 
