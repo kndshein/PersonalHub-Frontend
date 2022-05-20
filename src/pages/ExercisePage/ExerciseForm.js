@@ -31,15 +31,18 @@ const ExerciseForm = () => {
         />
         <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        <input
-          type="text"
-          name="exercise_rep_measurement"
-          id="exercise_rep_measurement"
-          value={exerciseData.exercise_rep_measurement}
-          placeholder="Exercise Rep Measurement"
-          onChange={handleChange}
-        />
+        {exerciseData.exercise_type === 'Cardio' ? (
+          <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
+        ) : (
+          <input
+            type="text"
+            name="exercise_rep_measurement"
+            id="exercise_rep_measurement"
+            value={exerciseData.exercise_rep_measurement}
+            placeholder="Exercise Rep Measurement"
+            onChange={handleChange}
+          />
+        )}
         <input className="form-submit" type="submit" value="Add Exercise" />
       </form>
     </div>

@@ -34,13 +34,15 @@ const HomePage = () => {
   };
   return (
     <>
-      {loading && <div>Loading</div>}
-      {!loading && (
+      {loading ? (
+        <div>Loading</div>
+      ) : (
         <>
-          {showLogin && (
+          {showLogin ? (
             <Login loginData={loginData} setLoginData={setLoginData} handleSubmit={handleLoginSubmit} />
+          ) : (
+            <Link to="/exercise">Exercise</Link>
           )}
-          {!showLogin && <Link to="/exercise">Exercise</Link>}
         </>
       )}
     </>

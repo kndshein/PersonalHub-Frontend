@@ -4,7 +4,7 @@ let exercise_types = ['Chest', 'Back', 'Arms', 'Shoulders', 'Legs', 'Core', 'Car
 const ExerciseTypeToggle = ({ exerciseData, setExerciseData }) => {
   const handleOnClick = (event, type) => {
     event.preventDefault();
-    let data = { ...exerciseData };
+    let data = { ...exerciseData, exercise_type: type };
     if (type === 'Cardio') {
       data.exercise_rep_measurement = '';
     } else {
