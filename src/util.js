@@ -7,8 +7,8 @@ const isLoggedIn = async () => {
     let res = await query('POST', `${process.env.REACT_APP_BACKEND_URL}/user/verifyToken`, false, {
       token: token,
     });
-    console.log(res);
-    return res;
+    if (res.status !== 200) throw new Error(res.data.message);
+    return res.data.result;
   } catch (err) {
     console.log(err); //TODO: Log
     return false;
@@ -21,9 +21,10 @@ const query = async (method, url, isTokenized, data) => {
 
   try {
     let res = await axios(query_data);
-    return res.data.err ? res.data.err : res.data.result;
+    return res;
   } catch (err) {
-    return err.response.data;
+    console.log(err); //TODO: Log
+    return err.response;
   }
 };
 

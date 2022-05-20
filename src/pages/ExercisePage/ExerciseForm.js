@@ -4,7 +4,7 @@ import ExerciseTypeToggle from './ExerciseTypeToggle';
 import CardioSettingsForm from './CardioSettingsForm';
 import { query } from '../../util';
 
-const ExerciseForm = () => {
+const ExerciseForm = ({ setAddTrigger }) => {
   let [exerciseData, setExerciseData] = useState({
     exercise_name: '',
     exercise_days: [],
@@ -31,7 +31,7 @@ const ExerciseForm = () => {
       true,
       data
     );
-    console.log(res);
+    setAddTrigger(true);
   };
 
   return (
