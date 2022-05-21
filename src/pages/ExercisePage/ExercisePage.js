@@ -23,9 +23,9 @@ const ExercisePage = () => {
 
   return (
     <div>
-      {exerciseList.map((exercise, idx) => {
-        return <ExerciseList key={idx} exercise={exercise} />;
-      })}
+      {exerciseList.map((exercise, idx) => (
+        <ExerciseList key={idx} exercise={exercise} />
+      ))}
       <ExerciseForm setAddTrigger={setAddTrigger} />
     </div>
   );

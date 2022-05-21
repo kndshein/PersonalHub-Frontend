@@ -41,7 +41,7 @@ const HomePage = () => {
           {showLogin ? (
             <Login loginData={loginData} setLoginData={setLoginData} handleSubmit={handleLoginSubmit} />
           ) : (
-            <Link to="/exercise">Exercise</Link>
+            <Link to="/exercises">Exercise</Link>
           )}
         </>
       )}

@@ -1,5 +1,14 @@
 import axios from 'axios';
 
+const getCurrDate = () => {
+  const curr_time = new Date();
+  let curr_year = curr_time.getUTCFullYear();
+  let curr_month = curr_time.getUTCMonth() + 1;
+  curr_month = curr_month < 10 ? `0${curr_month}` : curr_month;
+  let curr_date = curr_time.getUTCDate();
+  return `${curr_year}-${curr_month}-${curr_date}`;
+};
+
 const isLoggedIn = async () => {
   let token = localStorage.getItem('token');
   try {
@@ -28,4 +37,4 @@ const query = async (method, url, isTokenized, data) => {
   }
 };
 
-export { isLoggedIn, query };
+export { getCurrDate, isLoggedIn, query };
