@@ -5,7 +5,7 @@ import ExerciseList from './ExerciseList';
 
 const ExercisePage = () => {
   let [exerciseList, setExerciseList] = useState([]);
-  let [addTrigger, setAddTrigger] = useState(false);
+  let [triggerReload, setTriggerReload] = useState(false);
   useEffect(() => {
     (async () => {
       let res = await query(
@@ -15,18 +15,18 @@ const ExercisePage = () => {
       );
       setExerciseList(res.data.result);
     })();
-  }, [addTrigger]);
+  }, [triggerReload]);
 
   useEffect(() => {
-    setAddTrigger(false);
-  }, [addTrigger]);
+    setTriggerReload(false);
+  }, [triggerReload]);
 
   return (
     <div>
       {exerciseList.map((exercise, idx) => (
         <ExerciseList key={idx} exercise={exercise} />
       ))}
-      <ExerciseForm setAddTrigger={setAddTrigger} />
+      <ExerciseForm setTriggerReload={setTriggerReload} />
     </div>
   );
 };

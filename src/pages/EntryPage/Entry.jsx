@@ -6,6 +6,7 @@ const Entry = ({ exercise }) => {
   const exercise_id = exercise._id;
   const curr_date = getCurrDate();
   let [loading, setLoading] = useState(true);
+  let [triggerReload, setTriggerReload] = useState(false);
   const [entry, setEntry] = useState(() => {
     let data = {
       exercise_id: exercise_id,
@@ -23,8 +24,11 @@ const Entry = ({ exercise }) => {
   });
 
   useEffect(() => {
+    setTriggerReload(false);
+  }, [triggerReload]);
+
+  useEffect(() => {
     (async () => {
-      console.log('DFWEF');
       let res = await query(
         'GET',
         `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/specific/${curr_date}/${exercise_id}`,
@@ -35,6 +39,7 @@ const Entry = ({ exercise }) => {
         let data;
         if (exercise_type === 'Cardio') {
           data = { ...entry, cardio_values: res.data.result.cardio_values };
+          console.log(data);
         } else {
           data = { ...entry, entry_rep: res.data.result.entry_rep, entry_set: res.data.result.entry_set };
         }
@@ -55,6 +60,16 @@ const Entry = ({ exercise }) => {
     }
   };
 
+  let handleSubmit = async (event) => {
+    event.preventDefault();
+    let data = { ...entry, entry_date: curr_date, exercise_id: exercise_id };
+    console.log(data);
+    let res = await query('POST', `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry`, true, data);
+    if (res.status === 200) {
+      setTriggerReload(true);
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -62,7 +77,7 @@ const Entry = ({ exercise }) => {
       ) : (
         <>
           <div>{exercise_name}</div>
-          <form className="form-body" autoComplete="off">
+          <form className="form-body" autoComplete="off" onSubmit={handleSubmit}>
             {exercise_type === 'Cardio' ? (
               <>
                 {cardio_settings.map((setting, idx) => {

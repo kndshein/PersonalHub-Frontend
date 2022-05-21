@@ -4,7 +4,7 @@ import ExerciseTypeToggle from './ExerciseTypeToggle';
 import CardioSettingsForm from './CardioSettingsForm';
 import { query } from '../../util';
 
-const ExerciseForm = ({ setAddTrigger }) => {
+const ExerciseForm = ({ setTriggerReload }) => {
   const defaultVal = {
     exercise_name: '',
     exercise_days: [],
@@ -34,7 +34,7 @@ const ExerciseForm = ({ setAddTrigger }) => {
     );
     if (res.status === 200) {
       setExerciseData(defaultVal);
-      setAddTrigger(true);
+      setTriggerReload(true);
     }
   };
 
