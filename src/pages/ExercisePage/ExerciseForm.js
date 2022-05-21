@@ -5,13 +5,14 @@ import CardioSettingsForm from './CardioSettingsForm';
 import { query } from '../../util';
 
 const ExerciseForm = ({ setAddTrigger }) => {
-  let [exerciseData, setExerciseData] = useState({
+  const defaultVal = {
     exercise_name: '',
     exercise_days: [],
     exercise_type: '',
     exercise_rep_measurement: '',
     cardio_settings: [],
-  });
+  };
+  const [exerciseData, setExerciseData] = useState(defaultVal);
 
   let handleChange = (event) => {
     setExerciseData({ ...exerciseData, [event.target.name]: event.target.value });
@@ -31,7 +32,10 @@ const ExerciseForm = ({ setAddTrigger }) => {
       true,
       data
     );
-    setAddTrigger(true);
+    if (res.status === 200) {
+      setExerciseData(defaultVal);
+      setAddTrigger(true);
+    }
   };
 
   return (
