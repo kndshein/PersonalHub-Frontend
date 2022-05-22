@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage.js';
 import ExercisePage from './pages/ExercisePage/ExercisePage.js';
 import EntryPage from './pages/EntryPage/EntryPage.jsx';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (

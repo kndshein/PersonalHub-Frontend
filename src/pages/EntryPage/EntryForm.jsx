@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { query } from '../../util';
 
-const Entry = ({ exercise, currDate }) => {
+const EntryForm = ({ exercise, currDate }) => {
   const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
@@ -110,7 +110,7 @@ const Entry = ({ exercise, currDate }) => {
                   return (
                     <input
                       key={idx}
-                      type="text"
+                      type="number"
                       name={setting}
                       id={setting}
                       value={entry?.cardio_values[setting]}
@@ -123,21 +123,22 @@ const Entry = ({ exercise, currDate }) => {
             ) : (
               <>
                 <input
-                  type="text"
-                  name="entry_rep"
-                  id="entry_rep"
-                  value={entry?.entry_rep}
-                  placeholder="Entry Rep"
-                  onChange={(event) => handleChange(false, event)}
-                />
-                <input
-                  type="text"
+                  type="number"
                   name="entry_set"
                   id="entry_set"
                   value={entry?.entry_set}
                   placeholder="Entry Set"
                   onChange={(event) => handleChange(false, event)}
                 />
+                <input
+                  type="number"
+                  name="entry_rep"
+                  id="entry_rep"
+                  value={entry?.entry_rep}
+                  placeholder="Entry Rep"
+                  onChange={(event) => handleChange(false, event)}
+                />
+                <span>{exercise_rep_measurement}</span>
               </>
             )}
             <input className="form-submit" type="submit" value={`${isNew ? 'Add' : 'Edit'} Entry`} />
@@ -148,4 +149,4 @@ const Entry = ({ exercise, currDate }) => {
   );
 };
 
-export default Entry;
+export default EntryForm;

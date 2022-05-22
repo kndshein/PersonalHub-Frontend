@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { days_index, getCurrDate, query } from '../../util';
-import Entry from './Entry';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import EntryForm from './EntryForm';
 import styles from './EntryPage.module.scss';
 
 const EntryPage = () => {
@@ -28,6 +29,9 @@ const EntryPage = () => {
   }, [currDate]);
 
   const handleDayChange = (direction) => {
+    if (direction === 'today' && currDate === getCurrDate()) {
+      return;
+    }
     let epoch_time = new Date(currDate).getTime();
     let one_day = 1 * 24 * 60 * 60 * 1000;
     let new_epoch_time;
@@ -36,6 +40,8 @@ const EntryPage = () => {
       new_epoch_time = epoch_time - one_day;
     } else if (direction === 'next') {
       new_epoch_time = epoch_time + one_day;
+    } else if (direction === 'today') {
+      new_epoch_time = new Date(getCurrDate()).getTime();
     } else {
       throw new Error('Uh oh, what direction is this?');
     }
@@ -52,20 +58,22 @@ const EntryPage = () => {
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={() => handleDayChange('prev')}>Previous Day</button>
-        <p className={styles.poop}>{currDateString}</p>
-        <button onClick={() => handleDayChange('next')}>Next Day</button>
-      </div>
+    <>
+      <section className={styles.day_nav}>
+        <GrFormPrevious role="button" className={styles.nav_button} onClick={() => handleDayChange('prev')} />
+        <button className={styles.current_date} onClick={() => handleDayChange('today')}>
+          {currDateString}
+        </button>
+        <GrFormNext role="button" className={styles.nav_button} onClick={() => handleDayChange('next')} />
+      </section>
       {!loading && (
-        <div>
+        <section className={styles.exercise_list}>
           {exerciseList.map((exercise, idx) => (
-            <Entry key={idx} exercise={exercise} currDate={currDate} />
+            <EntryForm key={idx} exercise={exercise} currDate={currDate} />
           ))}
-        </div>
+        </section>
       )}
-    </div>
+    </>
   );
 };
 export default EntryPage;

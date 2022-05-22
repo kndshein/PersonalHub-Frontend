@@ -1,3 +1,36 @@
-.poop {
-  color: red;
+.day_nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.current_date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  margin: 0 15px;
+  border-radius: 7px;
+  background-color: aquamarine;
+}
+
+.nav_button {
+  cursor: pointer;
+  height: 100%;
+  width: 50px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: bisque;
+}
+
+.exercise_list {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 10px;
+  background-color: salmon;
+  border-radius: 7px;
 }
