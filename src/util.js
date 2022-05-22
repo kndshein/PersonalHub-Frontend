@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const getCurrDate = () => {
   const curr_time = new Date();
-  let curr_year = curr_time.getUTCFullYear();
-  let curr_month = curr_time.getUTCMonth() + 1;
+  let curr_year = curr_time.getFullYear();
+  let curr_month = curr_time.getMonth() + 1;
   curr_month = curr_month < 10 ? `0${curr_month}` : curr_month;
-  let curr_date = curr_time.getUTCDate();
+  let curr_date = curr_time.getDate();
   return `${curr_year}-${curr_month}-${curr_date}`;
 };
 

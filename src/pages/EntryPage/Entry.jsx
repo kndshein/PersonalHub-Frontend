@@ -5,8 +5,10 @@ const Entry = ({ exercise }) => {
   const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
   const curr_date = getCurrDate();
-  let [loading, setLoading] = useState(true);
-  let [triggerReload, setTriggerReload] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+  const [triggerReload, setTriggerReload] = useState(false);
+  const [isNew, setIsNew] = useState(true);
   const [entry, setEntry] = useState(() => {
     let data = {
       exercise_id: exercise_id,
@@ -35,16 +37,18 @@ const Entry = ({ exercise }) => {
         true,
         { date: curr_date }
       );
+
       if (res.data.result) {
-        let data;
+        let data = { ...entry, entry_id: res.data.result._id };
         if (exercise_type === 'Cardio') {
-          data = { ...entry, cardio_values: res.data.result.cardio_values };
-          console.log(data);
+          data = { ...data, cardio_values: res.data.result.cardio_values };
         } else {
-          data = { ...entry, entry_rep: res.data.result.entry_rep, entry_set: res.data.result.entry_set };
+          data = { ...data, entry_rep: res.data.result.entry_rep, entry_set: res.data.result.entry_set };
         }
+        setIsNew(false);
         setEntry(data);
       }
+
       setLoading(false);
     })();
   }, []);
@@ -62,9 +66,25 @@ const Entry = ({ exercise }) => {
 
   let handleSubmit = async (event) => {
     event.preventDefault();
-    let data = { ...entry, entry_date: curr_date, exercise_id: exercise_id };
-    console.log(data);
-    let res = await query('POST', `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry`, true, data);
+    let data = { ...entry };
+    let query_method = 'PUT';
+
+    if (isNew) {
+      data.entry_date = curr_date;
+      data.exercise_id = exercise_id;
+      query_method = 'POST';
+    } else {
+      delete data.exercise_id;
+      delete data.entry_date;
+    }
+
+    let res = await query(
+      query_method,
+      `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry`,
+      true,
+      data
+    );
+
     if (res.status === 200) {
       setTriggerReload(true);
     }
@@ -114,7 +134,7 @@ const Entry = ({ exercise }) => {
                 />
               </>
             )}
-            <input className="form-submit" type="submit" value="Add Exercise" />
+            <input className="form-submit" type="submit" value={`${isNew ? 'Add' : 'Edit'} Entry`} />
           </form>
         </>
       )}
