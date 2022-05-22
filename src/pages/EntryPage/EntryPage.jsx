@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getCurrDate, query } from '../../util';
+import { days_index, getCurrDate, query } from '../../util';
 import Entry from './Entry';
 
 const EntryPage = () => {
   const [exerciseList, setExerciseList] = useState([]);
   const [currDate, setCurrDate] = useState(getCurrDate());
+  const [currDateString, setCurrDateString] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,6 +19,11 @@ const EntryPage = () => {
       setExerciseList(res.data.result);
       setLoading(false);
     })();
+  }, [currDate]);
+
+  useEffect(() => {
+    let date = new Date(currDate);
+    setCurrDateString(`${days_index[date.getUTCDay()]} (${date.getUTCMonth() + 1}/${date.getUTCDate()})`);
   }, [currDate]);
 
   const handleDayChange = (direction) => {
@@ -48,7 +54,7 @@ const EntryPage = () => {
     <div>
       <div>
         <button onClick={() => handleDayChange('prev')}>Previous Day</button>
-        <p>Current Day</p>
+        <p>{currDateString}</p>
         <button onClick={() => handleDayChange('next')}>Next Day</button>
       </div>
       {!loading && (

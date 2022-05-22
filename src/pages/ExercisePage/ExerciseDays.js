@@ -1,11 +1,11 @@
 import React from 'react';
-let exercise_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+import { days_index } from '../../util';
 
 const ExerciseDays = ({ exerciseData, setExerciseData }) => {
   const handleClick = (event, day) => {
     event.preventDefault();
     let data = [...exerciseData.exercise_days];
-    let idx = exercise_days.indexOf(day);
+    let idx = days_index.indexOf(day);
     console.log(data, idx);
     if (data.includes(idx)) {
       data = data.filter((item) => item !== idx);
@@ -17,7 +17,7 @@ const ExerciseDays = ({ exerciseData, setExerciseData }) => {
 
   return (
     <div>
-      {exercise_days.map((day, idx) => {
+      {days_index.map((day, idx) => {
         return (
           <button key={idx} onClick={(event) => handleClick(event, day)}>
             {day}

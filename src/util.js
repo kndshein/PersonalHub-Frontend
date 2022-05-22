@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const days_index = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 const getCurrDate = () => {
   const curr_time = new Date();
   let curr_year = curr_time.getFullYear();
@@ -38,4 +40,4 @@ const query = async (method, url, isTokenized, data) => {
   }
 };
 
-export { getCurrDate, isLoggedIn, query };
+export { days_index, getCurrDate, isLoggedIn, query };
