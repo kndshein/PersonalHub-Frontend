@@ -102,7 +102,6 @@ const EntryForm = ({ exercise, currDate }) => {
         <div>Loading</div>
       ) : (
         <>
-          <div>{exercise_name}</div>
           <form className="form-body" autoComplete="off" onSubmit={handleSubmit}>
             {exercise_type === 'Cardio' ? (
               <>

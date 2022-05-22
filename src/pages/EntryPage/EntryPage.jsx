@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { days_index, getCurrDate, query } from '../../util';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import Entry from './Entry';
 import EntryForm from './EntryForm';
 import styles from './EntryPage.module.scss';
 
@@ -69,7 +70,7 @@ const EntryPage = () => {
       {!loading && (
         <section className={styles.exercise_list}>
           {exerciseList.map((exercise, idx) => (
-            <EntryForm key={idx} exercise={exercise} currDate={currDate} />
+            <Entry key={idx} exercise={exercise} currDate={currDate} />
           ))}
         </section>
       )}
