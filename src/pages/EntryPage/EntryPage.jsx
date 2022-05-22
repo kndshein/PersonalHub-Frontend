@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { days_index, getCurrDate, query } from '../../util';
 import Entry from './Entry';
+import styles from './EntryPage.module.scss';
 
 const EntryPage = () => {
   const [exerciseList, setExerciseList] = useState([]);
@@ -54,7 +55,7 @@ const EntryPage = () => {
     <div>
       <div>
         <button onClick={() => handleDayChange('prev')}>Previous Day</button>
-        <p>{currDateString}</p>
+        <p className={styles.poop}>{currDateString}</p>
         <button onClick={() => handleDayChange('next')}>Next Day</button>
       </div>
       {!loading && (
