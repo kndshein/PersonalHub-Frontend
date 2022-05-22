@@ -6,6 +6,7 @@ const getCurrDate = () => {
   let curr_month = curr_time.getMonth() + 1;
   curr_month = curr_month < 10 ? `0${curr_month}` : curr_month;
   let curr_date = curr_time.getDate();
+  curr_date = curr_date < 10 ? `0${curr_date}` : curr_date;
   return `${curr_year}-${curr_month}-${curr_date}`;
 };
 

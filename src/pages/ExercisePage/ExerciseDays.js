@@ -6,7 +6,8 @@ const ExerciseDays = ({ exerciseData, setExerciseData }) => {
     event.preventDefault();
     let data = [...exerciseData.exercise_days];
     let idx = exercise_days.indexOf(day);
-    if (data.includes(day)) {
+    console.log(data, idx);
+    if (data.includes(idx)) {
       data = data.filter((item) => item !== idx);
     } else {
       data.push(idx);

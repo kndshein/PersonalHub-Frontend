@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { query, getCurrDate } from '../../util';
+import { query } from '../../util';
 
 const Entry = ({ exercise, currDate }) => {
   const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
@@ -9,20 +9,12 @@ const Entry = ({ exercise, currDate }) => {
   const [triggerReload, setTriggerReload] = useState(false);
   const [isNew, setIsNew] = useState(true);
 
-  const [entry, setEntry] = useState(() => {
-    let data = {
-      exercise_id: exercise_id,
-      entry_date: currDate,
-    };
-    if (cardio_settings) {
-      data.cardio_values = {};
-      for (let setting of cardio_settings) {
-        data.cardio_values[setting] = '';
-      }
-    } else {
-      data = { ...data, entry_rep: '', entry_set: '' };
-    }
-    return data;
+  const [entry, setEntry] = useState({
+    exercise_id: exercise_id,
+    entry_date: currDate,
+    cardio_values: {},
+    entry_rep: '',
+    entry_set: '',
   });
 
   useEffect(() => {
@@ -38,20 +30,34 @@ const Entry = ({ exercise, currDate }) => {
         { date: currDate }
       );
 
+      let data;
       if (res.data.result) {
-        let data = { ...entry, entry_id: res.data.result._id };
+        data = { ...entry, entry_id: res.data.result._id };
         if (exercise_type === 'Cardio') {
           data = { ...data, cardio_values: res.data.result.cardio_values };
         } else {
           data = { ...data, entry_rep: res.data.result.entry_rep, entry_set: res.data.result.entry_set };
         }
         setIsNew(false);
-        setEntry(data);
+      } else {
+        data = {
+          exercise_id: exercise_id,
+          entry_date: currDate,
+        };
+        if (cardio_settings) {
+          data.cardio_values = {};
+          for (let setting of cardio_settings) {
+            data.cardio_values[setting] = '';
+          }
+        } else {
+          data = { ...data, entry_rep: '', entry_set: '' };
+        }
       }
 
+      setEntry(data);
       setLoading(false);
     })();
-  }, []);
+  }, [currDate]);
 
   let handleChange = (isCardio, event) => {
     if (isCardio) {
@@ -107,7 +113,7 @@ const Entry = ({ exercise, currDate }) => {
                       type="text"
                       name={setting}
                       id={setting}
-                      value={entry.cardio_values[setting]}
+                      value={entry?.cardio_values[setting]}
                       placeholder={setting}
                       onChange={(event) => handleChange(true, event)}
                     />
