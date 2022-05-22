@@ -4,7 +4,7 @@ import EntryForm from './EntryForm';
 import PastEntries from './PastEntries';
 
 const Entry = ({ exercise, currDate }) => {
-  const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
+  const { exercise_type } = exercise;
   const exercise_id = exercise._id;
 
   const [showDetail, setShowDetail] = useState(false);
@@ -43,16 +43,22 @@ const Entry = ({ exercise, currDate }) => {
 
   return (
     <>
-      <button onClick={handleShow}>{exercise.exercise_name}</button>
-      {showDetail && (
+      {loading ? (
+        <div>Loading</div>
+      ) : (
         <>
-          <PastEntries
-            exercise={exercise}
-            currDate={currDate}
-            pastEntries={pastEntries}
-            setPastValues={setPastValues}
-          />
-          <EntryForm exercise={exercise} currDate={currDate} pastValues={pastValues} />
+          <button onClick={handleShow}>{exercise.exercise_name}</button>
+          {showDetail && (
+            <>
+              <PastEntries
+                exercise={exercise}
+                currDate={currDate}
+                pastEntries={pastEntries}
+                setPastValues={setPastValues}
+              />
+              <EntryForm exercise={exercise} currDate={currDate} pastValues={pastValues} />
+            </>
+          )}
         </>
       )}
     </>

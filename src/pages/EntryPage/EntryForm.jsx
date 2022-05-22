@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { HiCheck } from 'react-icons/hi';
+import { GrFormEdit } from 'react-icons/gr';
 import { query } from '../../util';
 
 const EntryForm = ({ exercise, currDate, pastValues }) => {
-  const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
+  const { exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
-  console.log(pastValues);
 
   const [loading, setLoading] = useState(true);
   const [triggerReload, setTriggerReload] = useState(false);
   const [isNew, setIsNew] = useState(true);
+  const [allowEdit, setAllowEdit] = useState(false);
 
   const [entry, setEntry] = useState({
     exercise_id: exercise_id,
@@ -64,14 +66,14 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
             entry_measurement: pastValues ? pastValues.entry_measurement : '',
           };
         }
+        setAllowEdit(true);
       }
-
       setEntry(data);
       setLoading(false);
     })();
   }, [currDate]);
 
-  let handleChange = (isCardio, event) => {
+  const handleChange = (isCardio, event) => {
     if (isCardio) {
       setEntry({
         ...entry,
@@ -82,7 +84,12 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
     }
   };
 
-  let handleSubmit = async (event) => {
+  const handleEdit = (event) => {
+    event.preventDefault();
+    setAllowEdit(true);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let data = { ...entry };
     if (exercise_type === 'Cardio') {
@@ -134,6 +141,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                       value={entry?.cardio_values[setting]}
                       placeholder={setting}
                       onChange={(event) => handleChange(true, event)}
+                      disabled={!allowEdit}
                     />
                   );
                 })}
@@ -147,6 +155,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                   value={entry.entry_set}
                   placeholder="Entry Set"
                   onChange={(event) => handleChange(false, event)}
+                  disabled={!allowEdit}
                 />
                 <input
                   type="number"
@@ -155,6 +164,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                   value={entry.entry_rep}
                   placeholder="Entry Rep"
                   onChange={(event) => handleChange(false, event)}
+                  disabled={!allowEdit}
                 />
                 <input
                   type="number"
@@ -163,11 +173,19 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                   value={entry.entry_measurement}
                   placeholder="Entry Measurement"
                   onChange={(event) => handleChange(false, event)}
+                  disabled={!allowEdit}
                 />
                 <span>{exercise_rep_measurement}</span>
               </>
             )}
-            <input className="form-submit" type="submit" value={`${isNew ? 'Add' : 'Edit'} Entry`} />
+            {!isNew && (
+              <button onClick={handleEdit} disabled={allowEdit}>
+                <GrFormEdit />
+              </button>
+            )}
+            <button className="form-submit" type="submit" disabled={!allowEdit}>
+              <HiCheck />
+            </button>
           </form>
         </>
       )}
