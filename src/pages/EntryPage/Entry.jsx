@@ -9,15 +9,15 @@ const Entry = ({ exercise, currDate }) => {
     setShowDetail(!showDetail);
   };
   return (
-    <div>
-      <div onClick={handleShow}>{exercise.exercise_name}</div>
+    <>
+      <button onClick={handleShow}>{exercise.exercise_name}</button>
       {showDetail && (
         <>
           <PastEntries exercise={exercise} currDate={currDate} />
           <EntryForm exercise={exercise} currDate={currDate} />
         </>
       )}
-    </div>
+    </>
   );
 };
 

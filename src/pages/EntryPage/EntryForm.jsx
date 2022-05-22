@@ -15,6 +15,7 @@ const EntryForm = ({ exercise, currDate }) => {
     cardio_values: {},
     entry_rep: '',
     entry_set: '',
+    entry_measurement: '',
   });
 
   useEffect(() => {
@@ -36,7 +37,12 @@ const EntryForm = ({ exercise, currDate }) => {
         if (exercise_type === 'Cardio') {
           data = { ...data, cardio_values: res.data.result.cardio_values };
         } else {
-          data = { ...data, entry_rep: res.data.result.entry_rep, entry_set: res.data.result.entry_set };
+          data = {
+            ...data,
+            entry_rep: res.data.result.entry_rep || '',
+            entry_set: res.data.result.entry_set || '',
+            entry_measurement: res.data.result.entry_measurement || '',
+          };
         }
         setIsNew(false);
       } else {
@@ -50,7 +56,7 @@ const EntryForm = ({ exercise, currDate }) => {
             data.cardio_values[setting] = '';
           }
         } else {
-          data = { ...data, entry_rep: '', entry_set: '' };
+          data = { ...data, entry_rep: '', entry_set: '', entry_measurement: '' };
         }
       }
 
@@ -73,6 +79,13 @@ const EntryForm = ({ exercise, currDate }) => {
   let handleSubmit = async (event) => {
     event.preventDefault();
     let data = { ...entry };
+    if (exercise_type === 'Cardio') {
+      delete data.entry_rep;
+      delete data.entry_set;
+      delete data.entry_measurement;
+    } else {
+      delete data.cardio_values;
+    }
     let query_method = 'PUT';
 
     if (isNew) {
@@ -125,7 +138,7 @@ const EntryForm = ({ exercise, currDate }) => {
                   type="number"
                   name="entry_set"
                   id="entry_set"
-                  value={entry?.entry_set}
+                  value={entry.entry_set}
                   placeholder="Entry Set"
                   onChange={(event) => handleChange(false, event)}
                 />
@@ -133,8 +146,16 @@ const EntryForm = ({ exercise, currDate }) => {
                   type="number"
                   name="entry_rep"
                   id="entry_rep"
-                  value={entry?.entry_rep}
+                  value={entry.entry_rep}
                   placeholder="Entry Rep"
+                  onChange={(event) => handleChange(false, event)}
+                />
+                <input
+                  type="number"
+                  name="entry_measurement"
+                  id="entry_measurement"
+                  value={entry.entry_measurement}
+                  placeholder="Entry Measurement"
                   onChange={(event) => handleChange(false, event)}
                 />
                 <span>{exercise_rep_measurement}</span>

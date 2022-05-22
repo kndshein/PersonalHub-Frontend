@@ -47,6 +47,7 @@ const PastEntries = ({ exercise, currDate }) => {
                   <>
                     <span>{entry.entry_set}</span>
                     <span>{entry.entry_rep}</span>
+                    <span>{entry.entry_measurement}</span>
                   </>
                 )}
               </div>
