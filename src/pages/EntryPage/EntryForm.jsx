@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { query } from '../../util';
 
-const EntryForm = ({ exercise, currDate }) => {
+const EntryForm = ({ exercise, currDate, pastValues }) => {
   const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
+  console.log(pastValues);
 
   const [loading, setLoading] = useState(true);
   const [triggerReload, setTriggerReload] = useState(false);
@@ -53,10 +54,15 @@ const EntryForm = ({ exercise, currDate }) => {
         if (cardio_settings) {
           data.cardio_values = {};
           for (let setting of cardio_settings) {
-            data.cardio_values[setting] = '';
+            data.cardio_values[setting] = pastValues[setting] ? pastValues[setting] : '';
           }
         } else {
-          data = { ...data, entry_rep: '', entry_set: '', entry_measurement: '' };
+          data = {
+            ...data,
+            entry_rep: pastValues ? pastValues.entry_rep : '',
+            entry_set: pastValues ? pastValues.entry_set : '',
+            entry_measurement: pastValues ? pastValues.entry_measurement : '',
+          };
         }
       }
 
