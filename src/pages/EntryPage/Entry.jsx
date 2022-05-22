@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { query } from '../../util';
 import EntryForm from './EntryForm';
 import PastEntries from './PastEntries';
+import styles from './Entry.module.scss';
 
 const Entry = ({ exercise, currDate }) => {
   const { exercise_type } = exercise;
@@ -42,14 +43,16 @@ const Entry = ({ exercise, currDate }) => {
   };
 
   return (
-    <>
+    <section className={styles.container}>
       {loading ? (
         <div>Loading</div>
       ) : (
         <>
-          <button onClick={handleShow}>{exercise.exercise_name}</button>
+          <button onClick={handleShow} className={styles.name_btn}>
+            {exercise.exercise_name}
+          </button>
           {showDetail && (
-            <>
+            <div className={styles.inner_container}>
               <PastEntries
                 exercise={exercise}
                 currDate={currDate}
@@ -57,11 +60,11 @@ const Entry = ({ exercise, currDate }) => {
                 setPastValues={setPastValues}
               />
               <EntryForm exercise={exercise} currDate={currDate} pastValues={pastValues} />
-            </>
+            </div>
           )}
         </>
       )}
-    </>
+    </section>
   );
 };
 

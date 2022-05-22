@@ -1,0 +1,14 @@
+.past_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+}
+
+.entry_values {
+  display: flex;
+}

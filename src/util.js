@@ -12,6 +12,11 @@ const getCurrDate = () => {
   return `${curr_year}-${curr_month}-${curr_date}`;
 };
 
+const getShortDateFromDate = (date) => {
+  let new_date = new Date(date);
+  return `${new_date.getUTCMonth() + 1}/${new_date.getUTCDate()}`;
+};
+
 const isLoggedIn = async () => {
   let token = localStorage.getItem('token');
   try {
@@ -40,4 +45,4 @@ const query = async (method, url, isTokenized, data) => {
   }
 };
 
-export { days_index, getCurrDate, isLoggedIn, query };
+export { days_index, getCurrDate, getShortDateFromDate, isLoggedIn, query };

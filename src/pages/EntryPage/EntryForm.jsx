@@ -128,7 +128,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
         <div>Loading</div>
       ) : (
         <>
-          <form className="form-body" autoComplete="off" onSubmit={handleSubmit}>
+          <form className="form-body" autoComplete="off">
             {exercise_type === 'Cardio' ? (
               <>
                 {cardio_settings.map((setting, idx) => {
@@ -183,7 +183,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                 <GrFormEdit />
               </button>
             )}
-            <button className="form-submit" type="submit" disabled={!allowEdit}>
+            <button onClick={handleSubmit} disabled={!allowEdit}>
               <HiCheck />
             </button>
           </form>

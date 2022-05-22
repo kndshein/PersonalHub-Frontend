@@ -63,7 +63,7 @@ const ExerciseForm = ({ setTriggerReload }) => {
             onChange={handleChange}
           />
         )}
-        <input className="form-submit" type="submit" value="Add Exercise" />
+        <input type="submit" value="Add Exercise" />
       </form>
     </div>
   );
