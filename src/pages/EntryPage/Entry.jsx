@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { query, getCurrDate } from '../../util';
 
-const Entry = ({ exercise }) => {
+const Entry = ({ exercise, currDate }) => {
   const { exercise_name, exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
-  const curr_date = getCurrDate();
 
   const [loading, setLoading] = useState(true);
   const [triggerReload, setTriggerReload] = useState(false);
   const [isNew, setIsNew] = useState(true);
+
   const [entry, setEntry] = useState(() => {
     let data = {
       exercise_id: exercise_id,
-      entry_date: curr_date,
+      entry_date: currDate,
     };
     if (cardio_settings) {
       data.cardio_values = {};
@@ -33,9 +33,9 @@ const Entry = ({ exercise }) => {
     (async () => {
       let res = await query(
         'GET',
-        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/specific/${curr_date}/${exercise_id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/specific/${currDate}/${exercise_id}`,
         true,
-        { date: curr_date }
+        { date: currDate }
       );
 
       if (res.data.result) {
@@ -70,7 +70,7 @@ const Entry = ({ exercise }) => {
     let query_method = 'PUT';
 
     if (isNew) {
-      data.entry_date = curr_date;
+      data.entry_date = currDate;
       data.exercise_id = exercise_id;
       query_method = 'POST';
     } else {

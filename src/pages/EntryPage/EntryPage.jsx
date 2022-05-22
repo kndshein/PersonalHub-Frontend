@@ -4,6 +4,8 @@ import Entry from './Entry';
 
 const EntryPage = () => {
   const [exerciseList, setExerciseList] = useState([]);
+  const [currDate, setCurrDate] = useState(getCurrDate());
+
   useEffect(() => {
     (async () => {
       let curr_date = getCurrDate();
@@ -18,6 +20,10 @@ const EntryPage = () => {
     })();
   }, []);
 
+  // const handleDayChange = (direction) => {
+  //   let num =
+  // }
+
   return (
     <div>
       <div>
@@ -27,7 +33,7 @@ const EntryPage = () => {
       </div>
       <div>
         {exerciseList.map((exercise, idx) => (
-          <Entry key={idx} exercise={exercise} />
+          <Entry key={idx} exercise={exercise} currDate={currDate} />
         ))}
       </div>
     </div>
