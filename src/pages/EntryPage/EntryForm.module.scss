@@ -42,3 +42,37 @@
     margin-left: 5px;
   }
 }
+
+.buttons_container {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+  height: 30px;
+  background-color: $complimentary;
+  border: none;
+  border-radius: 5px;
+  @include click-scale;
+  &:hover {
+    background-color: $complimentary-lite;
+  }
+  //   & svg {
+  //     fill: white;
+  //     stroke: white;
+  //   }
+}
+
+.submit_btn {
+  background-color: $that-other-color;
+  &:hover {
+    background-color: $that-other-color-but-lite;
+  }
+}
+
+.btn_logo {
+  color: white;
+  fill: white;
+}

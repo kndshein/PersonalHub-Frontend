@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { IconContext } from 'react-icons';
 import { HiCheck } from 'react-icons/hi';
-import { GrFormEdit } from 'react-icons/gr';
+import { FiEdit2 } from 'react-icons/fi';
 import { query } from '../../util';
 import styles from './EntryForm.module.scss';
 
@@ -186,14 +187,17 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
                 </>
               )}
             </section>
-            {!isNew && (
-              <button onClick={handleEdit} disabled={allowEdit}>
-                <GrFormEdit />
-              </button>
-            )}
-            <button onClick={handleSubmit} disabled={!allowEdit}>
-              <HiCheck />
-            </button>
+            <section className={styles.buttons_container}>
+              {isNew || allowEdit ? (
+                <button className={`${styles.btn} ${styles.submit_btn}`} onClick={handleSubmit}>
+                  <HiCheck size={20} className={styles.btn_logo} />
+                </button>
+              ) : (
+                <button className={styles.btn} onClick={handleEdit}>
+                  <FiEdit2 size={15} className={styles.btn_logo} />
+                </button>
+              )}
+            </section>
           </form>
         </>
       )}
