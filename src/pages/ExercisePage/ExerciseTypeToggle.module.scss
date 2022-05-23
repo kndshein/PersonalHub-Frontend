@@ -3,6 +3,7 @@
 
 .label {
   @include label;
+  margin-bottom: 5px;
 }
 
 .type {
@@ -14,16 +15,6 @@
   color: $complimentary-dark;
   background-color: $lite;
   @include click-scale;
-
-  &.cardio {
-    color: black;
-    background-color: $that-other-color-but-lite;
-
-    &.active {
-      color: white;
-      background-color: $that-other-color-but-dark;
-    }
-  }
 
   &.active {
     color: $lite;

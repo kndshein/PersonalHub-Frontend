@@ -42,15 +42,17 @@ const ExerciseForm = ({ setTriggerReload }) => {
   return (
     <div>
       <form autoComplete="off" className={styles.form_container} onSubmit={handleSubmit}>
-        <label htmlFor="exercise_name">Name</label>
-        <input
-          type="text"
-          name="exercise_name"
-          id="exercise_name"
-          value={exerciseData.exercise_name}
-          placeholder="Exercise Name"
-          onChange={handleChange}
-        />
+        <section className={styles.name_container}>
+          <label htmlFor="exercise_name">Name</label>
+          <input
+            type="text"
+            name="exercise_name"
+            id="exercise_name"
+            value={exerciseData.exercise_name}
+            placeholder="Exercise Name"
+            onChange={handleChange}
+          />
+        </section>
         <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
         {exerciseData.exercise_type === 'Cardio' ? (

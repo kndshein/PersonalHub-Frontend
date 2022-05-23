@@ -22,9 +22,7 @@ const ExerciseTypeToggle = ({ exerciseData, setExerciseData }) => {
             <button
               key={idx}
               onClick={(event) => handleOnClick(event, type)}
-              className={`${styles.type} ${exerciseData.exercise_type === type ? styles.active : ''} ${
-                type === 'Cardio' ? styles.cardio : ''
-              }`}
+              className={`${styles.type} ${exerciseData.exercise_type === type ? styles.active : ''}`}
             >
               {type}
             </button>

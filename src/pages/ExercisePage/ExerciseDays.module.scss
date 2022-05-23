@@ -3,6 +3,7 @@
 
 .label {
   @include label;
+  margin-bottom: 5px;
 }
 
 .days_container {
