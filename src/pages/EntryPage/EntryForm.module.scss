@@ -1,0 +1,44 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
+.input_fields {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.input {
+  text-align: right;
+  padding: 5px 7px;
+  border: 2px $that-other-color solid;
+  border-radius: 5px;
+  @include hide-num-input-arrows;
+  &:disabled {
+    border: none;
+    background-color: $lite;
+    color: $complimentary-dark;
+  }
+}
+
+.set_rep {
+  display: flex;
+
+  & input {
+    width: 35px;
+    margin-right: 5px;
+  }
+}
+
+.measure_grp {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  & input {
+    width: 45px;
+  }
+
+  & span {
+    margin-left: 5px;
+  }
+}

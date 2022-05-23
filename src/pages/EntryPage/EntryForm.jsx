@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HiCheck } from 'react-icons/hi';
 import { GrFormEdit } from 'react-icons/gr';
 import { query } from '../../util';
+import styles from './EntryForm.module.scss';
 
 const EntryForm = ({ exercise, currDate, pastValues }) => {
   const { exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
@@ -128,56 +129,63 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
         <div>Loading</div>
       ) : (
         <>
-          <form className="form-body" autoComplete="off">
-            {exercise_type === 'Cardio' ? (
-              <>
-                {cardio_settings.map((setting, idx) => {
-                  return (
+          <form autoComplete="off">
+            <section className={styles.input_fields}>
+              {exercise_type === 'Cardio' ? (
+                <>
+                  {cardio_settings.map((setting, idx) => {
+                    return (
+                      <input
+                        key={idx}
+                        type="number"
+                        name={setting}
+                        id={setting}
+                        value={entry.cardio_values[setting]}
+                        placeholder={setting}
+                        onChange={(event) => handleChange(true, event)}
+                        disabled={!allowEdit}
+                        className={styles.input}
+                      />
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  <section className={styles.set_rep}>
                     <input
-                      key={idx}
                       type="number"
-                      name={setting}
-                      id={setting}
-                      value={entry?.cardio_values[setting]}
-                      placeholder={setting}
-                      onChange={(event) => handleChange(true, event)}
+                      name="entry_set"
+                      id="entry_set"
+                      value={entry.entry_set}
+                      onChange={(event) => handleChange(false, event)}
                       disabled={!allowEdit}
+                      className={styles.input}
                     />
-                  );
-                })}
-              </>
-            ) : (
-              <>
-                <input
-                  type="number"
-                  name="entry_set"
-                  id="entry_set"
-                  value={entry.entry_set}
-                  placeholder="Entry Set"
-                  onChange={(event) => handleChange(false, event)}
-                  disabled={!allowEdit}
-                />
-                <input
-                  type="number"
-                  name="entry_rep"
-                  id="entry_rep"
-                  value={entry.entry_rep}
-                  placeholder="Entry Rep"
-                  onChange={(event) => handleChange(false, event)}
-                  disabled={!allowEdit}
-                />
-                <input
-                  type="number"
-                  name="entry_measurement"
-                  id="entry_measurement"
-                  value={entry.entry_measurement}
-                  placeholder="Entry Measurement"
-                  onChange={(event) => handleChange(false, event)}
-                  disabled={!allowEdit}
-                />
-                <span>{exercise_rep_measurement}</span>
-              </>
-            )}
+                    <input
+                      type="number"
+                      name="entry_rep"
+                      id="entry_rep"
+                      value={entry.entry_rep}
+                      onChange={(event) => handleChange(false, event)}
+                      disabled={!allowEdit}
+                      className={styles.input}
+                    />
+                  </section>
+                  <section className={styles.measure_grp}>
+                    <input
+                      type="number"
+                      name="entry_measurement"
+                      id="entry_measurement"
+                      value={entry.entry_measurement}
+                      onChange={(event) => handleChange(false, event)}
+                      disabled={!allowEdit}
+                      className={styles.input}
+                    />
+                    <span>{exercise_rep_measurement}</span>
+                  </section>
+                </>
+              )}
+            </section>
             {!isNew && (
               <button onClick={handleEdit} disabled={allowEdit}>
                 <GrFormEdit />
