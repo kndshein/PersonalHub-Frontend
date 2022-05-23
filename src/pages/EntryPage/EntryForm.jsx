@@ -5,12 +5,11 @@ import { FiEdit2 } from 'react-icons/fi';
 import { query } from '../../util';
 import styles from './EntryForm.module.scss';
 
-const EntryForm = ({ exercise, currDate, pastValues }) => {
+const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
   const { exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
   const [loading, setLoading] = useState(true);
-  const [triggerReload, setTriggerReload] = useState(false);
   const [isNew, setIsNew] = useState(true);
   const [allowEdit, setAllowEdit] = useState(false);
 
@@ -22,10 +21,6 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
     entry_set: '',
     entry_measurement: '',
   });
-
-  useEffect(() => {
-    setTriggerReload(false);
-  }, [triggerReload]);
 
   useEffect(() => {
     (async () => {
@@ -120,7 +115,7 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
     );
 
     if (res.status === 200) {
-      setTriggerReload(true);
+      setShowDetail(false);
     }
   };
 
@@ -133,23 +128,25 @@ const EntryForm = ({ exercise, currDate, pastValues }) => {
           <form autoComplete="off">
             <section className={styles.input_fields}>
               {exercise_type === 'Cardio' ? (
-                <>
+                <section className={styles.cardio_values_container}>
                   {cardio_settings.map((setting, idx) => {
                     return (
-                      <input
-                        key={idx}
-                        type="number"
-                        name={setting}
-                        id={setting}
-                        value={entry.cardio_values[setting]}
-                        placeholder={setting}
-                        onChange={(event) => handleChange(true, event)}
-                        disabled={!allowEdit}
-                        className={styles.input}
-                      />
+                      <section className={styles.cardio_values}>
+                        <label for={setting}>{setting}</label>
+                        <input
+                          key={idx}
+                          type="number"
+                          name={setting}
+                          id={setting}
+                          value={entry.cardio_values[setting]}
+                          onChange={(event) => handleChange(true, event)}
+                          disabled={!allowEdit}
+                          className={styles.input}
+                        />
+                      </section>
                     );
                   })}
-                </>
+                </section>
               ) : (
                 <>
                   <section className={styles.set_rep}>

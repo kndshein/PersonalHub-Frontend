@@ -75,7 +75,12 @@ const Entry = ({ exercise, currDate }) => {
                 pastEntries={pastEntries}
                 setPastValues={setPastValues}
               />
-              <EntryForm exercise={exercise} currDate={currDate} pastValues={pastValues} />
+              <EntryForm
+                exercise={exercise}
+                currDate={currDate}
+                pastValues={pastValues}
+                setShowDetail={setShowDetail}
+              />
             </div>
           )}
         </>
