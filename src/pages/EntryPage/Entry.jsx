@@ -22,14 +22,14 @@ const Entry = ({ exercise, currDate }) => {
         { date: currDate }
       );
       if (res.data.result.length) {
-        let last_value = res.data.result[res.data.result.length - 1];
+        let first_value = res.data.result[0];
         if (exercise_type === 'Cardio') {
-          setPastValues(last_value.cardio_values);
+          setPastValues(first_value.cardio_values);
         } else {
           setPastValues({
-            entry_set: last_value.entry_set,
-            entry_rep: last_value.entry_rep,
-            entry_measurement: last_value.entry_measurement,
+            entry_set: first_value.entry_set,
+            entry_rep: first_value.entry_rep,
+            entry_measurement: first_value.entry_measurement,
           });
         }
       }
