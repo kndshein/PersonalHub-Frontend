@@ -17,3 +17,9 @@
     -moz-appearance: textfield;
   }
 }
+
+@mixin label {
+  margin-right: 5px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}

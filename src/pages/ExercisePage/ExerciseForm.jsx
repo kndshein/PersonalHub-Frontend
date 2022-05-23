@@ -3,6 +3,7 @@ import ExerciseDays from './ExerciseDays';
 import ExerciseTypeToggle from './ExerciseTypeToggle';
 import CardioSettingsForm from './CardioSettingsForm';
 import { query } from '../../util';
+import styles from './ExerciseForm.module.scss';
 
 const ExerciseForm = ({ setTriggerReload }) => {
   const defaultVal = {
@@ -40,7 +41,8 @@ const ExerciseForm = ({ setTriggerReload }) => {
 
   return (
     <div>
-      <form className="form-body" autoComplete="off" onSubmit={handleSubmit}>
+      <form autoComplete="off" className={styles.form_container} onSubmit={handleSubmit}>
+        <label htmlFor="exercise_name">Name</label>
         <input
           type="text"
           name="exercise_name"

@@ -131,7 +131,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
                   {cardio_settings.map((setting, idx) => {
                     return (
                       <section className={styles.cardio_values}>
-                        <label for={setting}>{setting}</label>
+                        <label htmlFor={setting}>{setting}</label>
                         <input
                           key={idx}
                           type="number"
