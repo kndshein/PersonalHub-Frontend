@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { query } from '../../util';
 import ExerciseForm from './ExerciseForm';
-import ExerciseList from './ExerciseList';
+import Exercise from './Exercise';
+import styles from './ExercisePage.module.scss';
 
 const ExercisePage = () => {
   let [exerciseList, setExerciseList] = useState([]);
   let [triggerReload, setTriggerReload] = useState(false);
+  let [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
       let res = await query(
@@ -14,6 +16,7 @@ const ExercisePage = () => {
         true
       );
       setExerciseList(res.data.result);
+      setLoading(false);
     })();
   }, [triggerReload]);
 
@@ -22,12 +25,20 @@ const ExercisePage = () => {
   }, [triggerReload]);
 
   return (
-    <div>
-      {exerciseList.map((exercise, idx) => (
-        <ExerciseList key={idx} exercise={exercise} />
-      ))}
-      <ExerciseForm setTriggerReload={setTriggerReload} />
-    </div>
+    <>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <div>
+          <ExerciseForm setTriggerReload={setTriggerReload} />
+          <section className={styles.exercise_list}>
+            {exerciseList.map((exercise, idx) => (
+              <Exercise key={idx} exercise={exercise} />
+            ))}
+          </section>
+        </div>
+      )}
+    </>
   );
 };
 

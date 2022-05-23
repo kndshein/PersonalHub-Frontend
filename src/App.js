@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage.js';
-import ExercisePage from './pages/ExercisePage/ExercisePage.js';
-import EntryPage from './pages/EntryPage/EntryPage.jsx';
+import HomePage from './pages/HomePage/HomePage';
+import ExercisePage from './pages/ExercisePage/ExercisePage';
+import EntryPage from './pages/EntryPage/EntryPage';
 import './App.scss';
 
 function App() {

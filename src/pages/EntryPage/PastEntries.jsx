@@ -27,7 +27,7 @@ const PastEntries = ({ exercise, pastEntries }) => {
                   {entry.entry_set} x {entry.entry_rep}
                 </span>
                 <span className={styles.entry_values}>
-                  {entry.entry_measurement} {exercise.exercise_rep_measurement}
+                  {entry.entry_measurement} {exercise_rep_measurement}
                 </span>
               </>
             )}

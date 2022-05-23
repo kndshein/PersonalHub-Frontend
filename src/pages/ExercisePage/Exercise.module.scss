@@ -1,0 +1,41 @@
+@import '../../styles/color_palettes';
+
+.exercise {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: $base;
+  border-radius: 7px;
+
+  &.cardio {
+    background-color: $that-other-color-but-lite;
+    border: 3px $that-other-color solid;
+  }
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.label {
+  margin-right: 5px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+.days_list {
+  display: flex;
+}
+
+.settings_list {
+  display: flex;
+}
+
+li {
+  padding: 5px 7px;
+  font-size: 0.8rem;
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 5px;
+}

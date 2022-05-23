@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { IconContext } from 'react-icons';
 import { HiCheck } from 'react-icons/hi';
 import { FiEdit2 } from 'react-icons/fi';
 import { query } from '../../util';
