@@ -1,0 +1,32 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
+.label {
+  @include label;
+}
+
+.type {
+  cursor: pointer;
+  padding: 5px 7px;
+  margin: 0 5px 5px 0;
+  border: none;
+  border-radius: 5px;
+  color: $complimentary-dark;
+  background-color: $lite;
+  @include click-scale;
+
+  &.cardio {
+    color: black;
+    background-color: $that-other-color-but-lite;
+
+    &.active {
+      color: white;
+      background-color: $that-other-color-but-dark;
+    }
+  }
+
+  &.active {
+    color: $lite;
+    background-color: $complimentary-dark;
+  }
+}
