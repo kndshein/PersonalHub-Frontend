@@ -70,23 +70,11 @@
 }
 
 .btn {
-  cursor: pointer;
-  width: 100%;
-  height: 30px;
-  background-color: $complimentary;
-  border: none;
-  border-radius: 5px;
-  @include click-scale;
-  &:hover {
-    background-color: $complimentary-lite;
-  }
+  @include default-btn($complimentary, $complimentary-dark);
 }
 
 .submit_btn {
-  background-color: $that-other-color;
-  &:hover {
-    background-color: $that-other-color-but-lite;
-  }
+  @include default-btn($that-other-color, $that-other-color-but-dark);
 }
 
 .btn_logo {
