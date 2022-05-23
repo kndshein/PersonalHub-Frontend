@@ -52,7 +52,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
         if (cardio_settings) {
           data.cardio_values = {};
           for (let setting of cardio_settings) {
-            data.cardio_values[setting] = pastValues[setting] ? pastValues[setting] : '';
+            data.cardio_values[setting] = pastValues && pastValues[setting] ? pastValues[setting] : '';
           }
         } else {
           data = {
@@ -130,10 +130,9 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
                 <section className={styles.cardio_values_container}>
                   {cardio_settings.map((setting, idx) => {
                     return (
-                      <section className={styles.cardio_values}>
+                      <section className={styles.cardio_values} key={idx}>
                         <label htmlFor={setting}>{setting}</label>
                         <input
-                          key={idx}
                           type="number"
                           name={setting}
                           id={setting}
