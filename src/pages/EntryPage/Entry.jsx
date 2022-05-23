@@ -5,7 +5,7 @@ import PastEntries from './PastEntries';
 import styles from './Entry.module.scss';
 
 const Entry = ({ exercise, currDate }) => {
-  const { exercise_type } = exercise;
+  const { exercise_type, exercise_name } = exercise;
   const exercise_id = exercise._id;
 
   const [showDetail, setShowDetail] = useState(false);
@@ -49,7 +49,23 @@ const Entry = ({ exercise, currDate }) => {
       ) : (
         <>
           <button onClick={handleShow} className={styles.name_btn}>
-            {exercise.exercise_name}
+            <span>{exercise_name}</span>
+            {pastValues && (
+              <>
+                {exercise_type === 'Cardio' ? (
+                  <span className={styles.set_rep}>
+                    {Object.values(pastValues).map((value, idx) => {
+                      return <span key={idx}>{value}</span>;
+                    })}
+                  </span>
+                ) : (
+                  <span className={styles.set_rep}>
+                    <span>{pastValues.entry_set}</span>
+                    <span>{pastValues.entry_rep}</span>
+                  </span>
+                )}
+              </>
+            )}
           </button>
           {showDetail && (
             <div className={styles.inner_container}>

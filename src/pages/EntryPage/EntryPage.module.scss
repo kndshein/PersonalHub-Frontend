@@ -1,3 +1,6 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
 .day_nav {
   display: flex;
   justify-content: space-between;
@@ -7,6 +10,7 @@
 }
 
 .current_date {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +18,9 @@
   height: 100%;
   margin: 0 15px;
   border-radius: 7px;
-  background-color: aquamarine;
+  background-color: $lite;
+  border: none;
+  @include click-scale;
 }
 
 .nav_button {
@@ -23,13 +29,14 @@
   width: 50px;
   padding: 10px;
   border-radius: 7px;
-  background-color: bisque;
+  background-color: $base;
+  @include click-scale;
 }
 
 .exercise_list {
   display: flex;
   flex-flow: column;
   padding: 10px;
-  background-color: salmon;
+  background-color: $lite;
   border-radius: 7px;
 }

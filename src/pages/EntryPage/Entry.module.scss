@@ -1,17 +1,38 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
 .container {
-  background-color: gainsboro;
+  background-color: white;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 7px;
 }
 
 .inner_container {
-  padding: 10px;
   margin-top: 10px;
-  border-radius: 7px;
-  background-color: blueviolet;
 }
 
 .name_btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: $base;
+
+  @include click-scale;
+
+  &:hover {
+    background-color: $accent;
+  }
+}
+
+.set_rep span {
+  padding: 3px 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  color: $complimentary-dark;
+  background-color: $lite;
 }
