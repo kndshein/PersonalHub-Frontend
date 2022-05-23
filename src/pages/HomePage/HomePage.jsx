@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { isLoggedIn } from '../../util.js';
-import Login from './Login.js';
+import Login from './Login';
 
 const HomePage = () => {
   let [showLogin, setShowLogin] = useState(true);
@@ -41,7 +41,10 @@ const HomePage = () => {
           {showLogin ? (
             <Login loginData={loginData} setLoginData={setLoginData} handleSubmit={handleLoginSubmit} />
           ) : (
-            <Link to="/exercises">Exercise</Link>
+            <>
+              <Link to="/exercises">Exercises</Link>
+              <Link to="/entries">Entries</Link>
+            </>
           )}
         </>
       )}
