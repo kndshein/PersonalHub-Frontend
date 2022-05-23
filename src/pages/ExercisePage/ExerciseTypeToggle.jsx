@@ -14,9 +14,9 @@ const ExerciseTypeToggle = ({ exerciseData, setExerciseData }) => {
     setExerciseData(data);
   };
   return (
-    <section>
+    <section className={styles.container}>
       <p className={styles.label}>Type</p>
-      <div className={styles.days_container}>
+      <div>
         {exercise_types.map((type, idx) => {
           return (
             <button

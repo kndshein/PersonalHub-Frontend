@@ -41,9 +41,11 @@ const ExerciseForm = ({ setTriggerReload }) => {
 
   return (
     <div>
-      <form autoComplete="off" className={styles.form_container} onSubmit={handleSubmit}>
+      <form autoComplete="off" className={styles.form_container}>
         <section className={styles.name_container}>
-          <label htmlFor="exercise_name">Name</label>
+          <label htmlFor="exercise_name" className={styles.label}>
+            Name
+          </label>
           <input
             type="text"
             name="exercise_name"
@@ -51,23 +53,32 @@ const ExerciseForm = ({ setTriggerReload }) => {
             value={exerciseData.exercise_name}
             placeholder="Exercise Name"
             onChange={handleChange}
+            className={styles.input}
           />
         </section>
         <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        {exerciseData.exercise_type === 'Cardio' ? (
-          <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        ) : (
-          <input
-            type="text"
-            name="exercise_rep_measurement"
-            id="exercise_rep_measurement"
-            value={exerciseData.exercise_rep_measurement}
-            placeholder="Exercise Rep Measurement"
-            onChange={handleChange}
-          />
-        )}
-        <input type="submit" value="Add Exercise" />
+        <section className={styles.measurement_container}>
+          <p className={styles.label}>Measurement</p>
+          <div className={styles.input_container}>
+            {exerciseData.exercise_type === 'Cardio' ? (
+              <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
+            ) : (
+              <input
+                type="text"
+                name="exercise_rep_measurement"
+                id="exercise_rep_measurement"
+                value={exerciseData.exercise_rep_measurement}
+                placeholder="Exercise Rep Measurement"
+                onChange={handleChange}
+                className={styles.input}
+              />
+            )}
+          </div>
+        </section>
+        <button onClick={handleSubmit} className={styles.submit_btn}>
+          Add Exercise
+        </button>
       </form>
     </div>
   );

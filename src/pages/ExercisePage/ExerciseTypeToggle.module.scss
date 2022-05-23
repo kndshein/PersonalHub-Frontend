@@ -1,6 +1,10 @@
 @import '../../styles/color_palettes';
 @import '../../styles/util';
 
+.container {
+  margin-bottom: 10px;
+}
+
 .label {
   @include label;
   margin-bottom: 5px;
