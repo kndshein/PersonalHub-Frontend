@@ -9,6 +9,7 @@ const EntryPage = () => {
   const [currDate, setCurrDate] = useState(getCurrDate());
   const [currDateString, setCurrDateString] = useState();
   const [loading, setLoading] = useState(true);
+  const [triggerReload, setTriggerReload] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -18,11 +19,14 @@ const EntryPage = () => {
         true,
         { date: currDate }
       );
-      console.log(res.data.result);
       setExerciseList(res.data.result);
       setLoading(false);
     })();
-  }, [currDate]);
+  }, [currDate, triggerReload]);
+
+  useEffect(() => {
+    setTriggerReload(false);
+  }, [triggerReload]);
 
   useEffect(() => {
     let date = new Date(currDate);
@@ -70,7 +74,7 @@ const EntryPage = () => {
       {!loading && (
         <section className={styles.exercise_list}>
           {exerciseList.map((exercise, idx) => (
-            <Entry key={idx} exercise={exercise} currDate={currDate} />
+            <Entry key={idx} exercise={exercise} currDate={currDate} setTriggerReload={setTriggerReload} />
           ))}
         </section>
       )}

@@ -4,7 +4,7 @@ import EntryForm from './EntryForm';
 import PastEntries from './PastEntries';
 import styles from './Entry.module.scss';
 
-const Entry = ({ exercise, currDate }) => {
+const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const { exercise_type, exercise_name, is_completed_today } = exercise;
   const exercise_id = exercise._id;
 
@@ -48,13 +48,13 @@ const Entry = ({ exercise, currDate }) => {
             {pastValues && (
               <>
                 {exercise_type === 'Cardio' ? (
-                  <span className={styles.set_rep}>
+                  <span className={`${styles.set_rep} ${is_completed_today && styles.completed}`}>
                     {Object.values(pastValues).map((value, idx) => {
                       return <span key={idx}>{value}</span>;
                     })}
                   </span>
                 ) : (
-                  <span className={styles.set_rep}>
+                  <span className={`${styles.set_rep} ${is_completed_today && styles.completed}`}>
                     <span>{pastValues.set}</span>
                     <span>{pastValues.rep}</span>
                   </span>
@@ -75,6 +75,7 @@ const Entry = ({ exercise, currDate }) => {
                 currDate={currDate}
                 pastValues={pastValues}
                 setShowDetail={setShowDetail}
+                setTriggerReload={setTriggerReload}
               />
             </div>
           )}
