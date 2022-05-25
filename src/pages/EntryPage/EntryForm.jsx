@@ -5,7 +5,7 @@ import { query } from '../../util';
 import styles from './EntryForm.module.scss';
 
 const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
-  const { exercise_rep_measurement, exercise_type, cardio_settings } = exercise;
+  const { exercise_settings, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
   const [loading, setLoading] = useState(true);
@@ -16,9 +16,11 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
     exercise_id: exercise_id,
     entry_date: currDate,
     cardio_values: {},
-    entry_rep: '',
-    entry_set: '',
-    entry_measurement: '',
+    entry_values: {
+      set: '',
+      rep: '',
+      quantity: '',
+    },
   });
 
   useEffect(() => {
@@ -36,12 +38,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
         if (exercise_type === 'Cardio') {
           data = { ...data, cardio_values: res.data.result.cardio_values };
         } else {
-          data = {
-            ...data,
-            entry_rep: res.data.result.entry_rep || '',
-            entry_set: res.data.result.entry_set || '',
-            entry_measurement: res.data.result.entry_measurement || '',
-          };
+          data = { ...data, entry_values: res.data.result.entry_values };
         }
         setIsNew(false);
       } else {
@@ -57,9 +54,11 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
         } else {
           data = {
             ...data,
-            entry_rep: pastValues ? pastValues.entry_rep : '',
-            entry_set: pastValues ? pastValues.entry_set : '',
-            entry_measurement: pastValues ? pastValues.entry_measurement : '',
+            entry_values: {
+              set: pastValues ? pastValues.set : '',
+              rep: pastValues ? pastValues.rep : '',
+              quantity: pastValues ? pastValues.quantity : '',
+            },
           };
         }
         setAllowEdit(true);
@@ -76,7 +75,10 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
         cardio_values: { ...entry.cardio_values, [event.target.name]: event.target.value },
       });
     } else {
-      setEntry({ ...entry, [event.target.name]: event.target.value });
+      setEntry({
+        ...entry,
+        entry_values: { ...entry.entry_values, [event.target.name]: event.target.value },
+      });
     }
   };
 
@@ -89,9 +91,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
     event.preventDefault();
     let data = { ...entry };
     if (exercise_type === 'Cardio') {
-      delete data.entry_rep;
-      delete data.entry_set;
-      delete data.entry_measurement;
+      delete data.entry_values;
     } else {
       delete data.cardio_values;
     }
@@ -150,34 +150,35 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail }) => {
                   <section className={styles.set_rep}>
                     <input
                       type="number"
-                      name="entry_set"
-                      id="entry_set"
-                      value={entry.entry_set}
+                      name="set"
+                      id="set"
+                      value={entry.entry_values.set}
                       onChange={(event) => handleChange(false, event)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
                     <input
                       type="number"
-                      name="entry_rep"
-                      id="entry_rep"
-                      value={entry.entry_rep}
+                      name="rep"
+                      id="rep"
+                      value={entry.entry_values.rep}
                       onChange={(event) => handleChange(false, event)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
+                    <span>{exercise_settings.rep_unit}</span>
                   </section>
-                  <section className={styles.measure_grp}>
+                  <section className={styles.qty_grp}>
                     <input
                       type="number"
-                      name="entry_measurement"
-                      id="entry_measurement"
-                      value={entry.entry_measurement}
+                      name="quantity"
+                      id="quantity"
+                      value={entry.entry_values.quantity}
                       onChange={(event) => handleChange(false, event)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
-                    <span>{exercise_rep_measurement}</span>
+                    <span>{exercise_settings.quantity_unit}</span>
                   </section>
                 </>
               )}

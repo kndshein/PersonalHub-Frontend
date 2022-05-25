@@ -18,6 +18,7 @@ const EntryPage = () => {
         true,
         { date: currDate }
       );
+      console.log(res.data.result);
       setExerciseList(res.data.result);
       setLoading(false);
     })();

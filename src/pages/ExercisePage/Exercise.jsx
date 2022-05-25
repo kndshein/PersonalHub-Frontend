@@ -27,7 +27,11 @@ const Exercise = ({ exercise }) => {
           <p className={styles.label}>Units</p>
           <ul className={styles.settings_list}>
             {cardio_settings.map((setting, idx) => {
-              return <li key={idx}>{setting}</li>;
+              return (
+                <li className={styles.setting} key={idx}>
+                  {setting}
+                </li>
+              );
             })}
           </ul>
         </div>

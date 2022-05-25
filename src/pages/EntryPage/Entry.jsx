@@ -5,7 +5,7 @@ import PastEntries from './PastEntries';
 import styles from './Entry.module.scss';
 
 const Entry = ({ exercise, currDate }) => {
-  const { exercise_type, exercise_name } = exercise;
+  const { exercise_type, exercise_name, is_completed_today } = exercise;
   const exercise_id = exercise._id;
 
   const [showDetail, setShowDetail] = useState(false);
@@ -26,11 +26,7 @@ const Entry = ({ exercise, currDate }) => {
         if (exercise_type === 'Cardio') {
           setPastValues(first_value.cardio_values);
         } else {
-          setPastValues({
-            entry_set: first_value.entry_set,
-            entry_rep: first_value.entry_rep,
-            entry_measurement: first_value.entry_measurement,
-          });
+          setPastValues(first_value.entry_values);
         }
       }
       setPastEntries(res.data.result);
@@ -38,17 +34,16 @@ const Entry = ({ exercise, currDate }) => {
     })();
   }, [currDate]);
 
-  const handleShow = () => {
-    setShowDetail(!showDetail);
-  };
-
   return (
     <section className={styles.container}>
       {loading ? (
         <div>Loading</div>
       ) : (
         <>
-          <button onClick={handleShow} className={styles.name_btn}>
+          <button
+            onClick={() => setShowDetail(!showDetail)}
+            className={`${styles.name_btn} ${is_completed_today && styles.completed}`}
+          >
             <span>{exercise_name}</span>
             {pastValues && (
               <>
@@ -60,8 +55,8 @@ const Entry = ({ exercise, currDate }) => {
                   </span>
                 ) : (
                   <span className={styles.set_rep}>
-                    <span>{pastValues.entry_set}</span>
-                    <span>{pastValues.entry_rep}</span>
+                    <span>{pastValues.set}</span>
+                    <span>{pastValues.rep}</span>
                   </span>
                 )}
               </>

@@ -3,7 +3,7 @@ import styles from './PastEntries.module.scss';
 import { getShortDateFromDate } from '../../util';
 
 const PastEntries = ({ exercise, pastEntries }) => {
-  const { exercise_type, exercise_rep_measurement } = exercise;
+  const { exercise_type, exercise_settings } = exercise;
 
   return (
     <ul className={styles.past_list}>
@@ -24,10 +24,10 @@ const PastEntries = ({ exercise, pastEntries }) => {
             ) : (
               <>
                 <span className={styles.entry_values}>
-                  {entry.entry_set} x {entry.entry_rep}
+                  {entry.entry_values.set} x {entry.entry_values.rep} {exercise_settings.rep_unit}
                 </span>
                 <span className={styles.entry_values}>
-                  {entry.entry_measurement} {exercise_rep_measurement}
+                  {entry.entry_values.quantity} {exercise_settings.quantity_unit}
                 </span>
               </>
             )}
