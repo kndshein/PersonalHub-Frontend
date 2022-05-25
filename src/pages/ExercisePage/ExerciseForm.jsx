@@ -10,20 +10,30 @@ const ExerciseForm = ({ setTriggerReload }) => {
     exercise_name: '',
     exercise_days: [],
     exercise_type: '',
-    exercise_rep_measurement: '',
+    exercise_settings: {
+      rep_unit: '',
+      quantity_unit: '',
+    },
     cardio_settings: [],
   };
   const [exerciseData, setExerciseData] = useState(defaultVal);
 
-  let handleChange = (event) => {
-    setExerciseData({ ...exerciseData, [event.target.name]: event.target.value });
+  let handleChange = (event, is_exercise_settings) => {
+    if (is_exercise_settings) {
+      setExerciseData({
+        ...exerciseData,
+        exercise_settings: { ...exerciseData.exercise_settings, [event.target.name]: event.target.value },
+      });
+    } else {
+      setExerciseData({ ...exerciseData, [event.target.name]: event.target.value });
+    }
   };
 
   let handleSubmit = async (event) => {
     event.preventDefault();
     let data = { ...exerciseData };
     if (data.exercise_type === 'Cardio') {
-      delete data.exercise_rep_measurement;
+      delete data.exercise_settings;
     } else {
       delete data.cardio_settings;
     }
@@ -58,21 +68,32 @@ const ExerciseForm = ({ setTriggerReload }) => {
         </section>
         <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        <section className={styles.measurement_container}>
-          <p className={styles.label}>Measurement</p>
+        <section className={styles.units_container}>
+          <p className={styles.label}>Units</p>
           <div className={styles.input_container}>
             {exerciseData.exercise_type === 'Cardio' ? (
               <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
             ) : (
-              <input
-                type="text"
-                name="exercise_rep_measurement"
-                id="exercise_rep_measurement"
-                value={exerciseData.exercise_rep_measurement}
-                placeholder="Exercise Rep Measurement"
-                onChange={handleChange}
-                className={styles.input}
-              />
+              <>
+                <input
+                  type="text"
+                  name="rep_unit"
+                  id="rep_unit"
+                  value={exerciseData.exercise_settings.rep_unit}
+                  placeholder="Rep Unit"
+                  onChange={(event) => handleChange(event, true)}
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  name="quantity_unit"
+                  id="quantity_unit"
+                  value={exerciseData.exercise_settings.quantity_unit}
+                  placeholder="Quantity Unit"
+                  onChange={(event) => handleChange(event, true)}
+                  className={styles.input}
+                />
+              </>
             )}
           </div>
         </section>
