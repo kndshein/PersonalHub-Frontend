@@ -66,7 +66,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setTriggerRe
       setEntry(data);
       setLoading(false);
     })();
-  }, [currDate]);
+  }, [currDate, exercise]);
 
   const handleChange = (isCardio, event) => {
     if (isCardio) {
@@ -137,7 +137,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setTriggerRe
                           type="number"
                           name={setting}
                           id={setting}
-                          value={entry.cardio_values[setting]}
+                          value={entry.cardio_values[setting] ?? ''}
                           onChange={(event) => handleChange(true, event)}
                           disabled={!allowEdit}
                           className={styles.input}

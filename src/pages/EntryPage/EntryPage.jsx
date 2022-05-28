@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { days_index, getCurrDate, query } from '../../util';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Entry from './Entry';
+import CardioDropdown from './CardioDropdown';
 import styles from './EntryPage.module.scss';
 
 const EntryPage = () => {
   const [exerciseList, setExerciseList] = useState([]);
+  const [cardioList, setCardioList] = useState([]);
+  const [selectedCardio, setSelectedCardio] = useState();
   const [currDate, setCurrDate] = useState(getCurrDate());
   const [currDateString, setCurrDateString] = useState();
   const [loading, setLoading] = useState(true);
@@ -20,6 +23,13 @@ const EntryPage = () => {
         { date: currDate }
       );
       setExerciseList(res.data.result);
+      let cardio_res = await query(
+        'GET',
+        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise/list/cardio`,
+        true
+      );
+      setCardioList(cardio_res.data.result);
+      setSelectedCardio(cardio_res.data.result[0]);
       setLoading(false);
     })();
   }, [currDate, triggerReload]);
@@ -71,12 +81,22 @@ const EntryPage = () => {
         </button>
         <GrFormNext role="button" className={styles.nav_button} onClick={() => handleDayChange('next')} />
       </section>
-      {!loading && (
-        <section className={styles.exercise_list}>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <>
           {exerciseList.map((exercise, idx) => (
             <Entry key={idx} exercise={exercise} currDate={currDate} setTriggerReload={setTriggerReload} />
           ))}
-        </section>
+          <CardioDropdown
+            cardioList={cardioList}
+            selectedCardio={selectedCardio}
+            setSelectedCardio={setSelectedCardio}
+          />
+          {selectedCardio && (
+            <Entry exercise={selectedCardio} currDate={currDate} setTriggerReload={setTriggerReload} />
+          )}
+        </>
       )}
     </>
   );

@@ -14,6 +14,10 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const [pastEntries, setPastEntries] = useState([{}]);
 
   useEffect(() => {
+    setLoading(true);
+  }, [exercise]);
+
+  useEffect(() => {
     (async () => {
       let res = await query(
         'GET',
@@ -28,11 +32,13 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
         } else {
           setPastValues(first_value.entry_values);
         }
+      } else {
+        setPastValues(null);
       }
       setPastEntries(res.data.result);
       setLoading(false);
     })();
-  }, [currDate]);
+  }, [currDate, exercise]);
 
   return (
     <section className={styles.container}>
@@ -64,12 +70,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
           </button>
           {showDetail && (
             <div className={styles.inner_container}>
-              <PastEntries
-                exercise={exercise}
-                currDate={currDate}
-                pastEntries={pastEntries}
-                setPastValues={setPastValues}
-              />
+              <PastEntries exercise={exercise} currDate={currDate} pastEntries={pastEntries} />
               <EntryForm
                 exercise={exercise}
                 currDate={currDate}

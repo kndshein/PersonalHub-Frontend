@@ -3,7 +3,7 @@ import { days_index } from '../../util';
 import styles from './Exercise.module.scss';
 
 const Exercise = ({ exercise }) => {
-  const { exercise_name, exercise_days, exercise_type, exercise_settings, cardio_settings } = exercise;
+  const { exercise_name, exercise_type, exercise_settings, cardio_settings } = exercise;
   return (
     <section className={`${styles.exercise} ${exercise_type === 'Cardio' ? styles.cardio : ''}`}>
       <div className={styles.group}>
