@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './CardioDropdown.module.scss';
 
 const CardioDropdown = ({ cardioList, selectedCardio, setSelectedCardio }) => {
   const handleChange = (event) => {
@@ -7,7 +8,7 @@ const CardioDropdown = ({ cardioList, selectedCardio, setSelectedCardio }) => {
   };
 
   return (
-    <select value={selectedCardio._id} onChange={handleChange}>
+    <select value={selectedCardio._id} onChange={handleChange} className={styles.select}>
       {cardioList.map((cardio) => {
         return (
           <option key={cardio._id} value={cardio._id}>

@@ -1,0 +1,12 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
+.select {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: $lite;
+  border: 2px solid $base;
+  border-radius: 5px;
+}

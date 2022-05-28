@@ -21,7 +21,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
     (async () => {
       let res = await query(
         'GET',
-        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/past/${currDate}/${exercise_id}/5`,
+        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/past/${currDate}/${exercise_id}/3`,
         true,
         { date: currDate }
       );
