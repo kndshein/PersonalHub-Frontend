@@ -14,14 +14,6 @@ const Exercise = ({ exercise }) => {
         <p className={styles.label}>Type</p>
         <p>{exercise_type}</p>
       </div>
-      <div className={styles.group}>
-        <p className={styles.label}>Days</p>
-        <ul className={styles.days_list}>
-          {exercise_days.map((day, idx) => {
-            return <li key={idx}>{days_index[day]}</li>;
-          })}
-        </ul>
-      </div>
       {exercise_type === 'Cardio' ? (
         <div className={styles.group}>
           <p className={styles.label}>Units</p>
@@ -37,6 +29,18 @@ const Exercise = ({ exercise }) => {
         </div>
       ) : (
         <>
+          <div className={styles.group}>
+            <p className={styles.label}>Days</p>
+            <ul className={styles.days_list}>
+              {exercise_settings.days.map((day, idx) => {
+                return (
+                  <li key={idx} className={styles.day}>
+                    {days_index[day]}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <div className={styles.group}>
             <p className={styles.label}>Rep Unit</p>
             <p>{exercise_settings.rep_unit}</p>

@@ -26,8 +26,12 @@ const CardioSettingsForm = ({ exerciseData, setExerciseData }) => {
 
   return (
     <div>
+      <label htmlFor="settings_name" className={styles.label}>
+        Cardio Settings
+      </label>
       <input
         type="text"
+        id="settings_name"
         value={formData}
         placeholder="Settings Name"
         onChange={(event) => setFormData(event.target.value)}

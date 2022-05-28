@@ -7,7 +7,7 @@ const ExerciseTypeToggle = ({ exerciseData, setExerciseData }) => {
     event.preventDefault();
     let data = { ...exerciseData, exercise_type: type };
     if (type === 'Cardio') {
-      data.exercise_settings = { rep_unit: '', quantity_unit: '' };
+      data.exercise_settings = { rep_unit: '', quantity_unit: '', days: [] };
     } else {
       data.cardio_settings = [];
     }

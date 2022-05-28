@@ -11,14 +11,9 @@
 }
 
 .day {
-  cursor: pointer;
-  padding: 5px 7px;
+  @include default-btn(white, $complimentary-dark);
+  width: auto;
   margin: 0 5px 5px 0;
-  border: none;
-  border-radius: 5px;
-  color: $complimentary-dark;
-  background-color: $lite;
-  @include click-scale;
 
   &.active {
     color: $lite;

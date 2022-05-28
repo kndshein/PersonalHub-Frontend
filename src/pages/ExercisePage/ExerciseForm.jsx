@@ -8,11 +8,11 @@ import styles from './ExerciseForm.module.scss';
 const ExerciseForm = ({ setTriggerReload }) => {
   const defaultVal = {
     exercise_name: '',
-    exercise_days: [],
     exercise_type: '',
     exercise_settings: {
       rep_unit: '',
       quantity_unit: '',
+      days: [],
     },
     cardio_settings: [],
   };
@@ -66,15 +66,17 @@ const ExerciseForm = ({ setTriggerReload }) => {
             className={styles.input}
           />
         </section>
-        <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
         <ExerciseTypeToggle exerciseData={exerciseData} setExerciseData={setExerciseData} />
-        <section className={styles.units_container}>
-          <p className={styles.label}>Units</p>
+        <section className={styles.branching_container}>
           <div className={styles.input_container}>
             {exerciseData.exercise_type === 'Cardio' ? (
               <CardioSettingsForm exerciseData={exerciseData} setExerciseData={setExerciseData} />
             ) : (
               <>
+                <ExerciseDays exerciseData={exerciseData} setExerciseData={setExerciseData} />
+                <label htmlFor="rep_unit" className={styles.label}>
+                  Rep Unit
+                </label>
                 <input
                   type="text"
                   name="rep_unit"
@@ -84,6 +86,9 @@ const ExerciseForm = ({ setTriggerReload }) => {
                   onChange={(event) => handleChange(event, true)}
                   className={styles.input}
                 />
+                <label htmlFor="quantity_unit" className={styles.label}>
+                  Quantity Unit
+                </label>
                 <input
                   type="text"
                   name="quantity_unit"
