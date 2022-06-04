@@ -5,11 +5,11 @@
   padding: 5px 7px;
   border-radius: 3px;
   border: none;
-  border: 2px $that-other-color solid;
+  border: 2px $complementary solid;
   margin-bottom: 10px;
 
   &.error {
-    border: 2px $complimentary-dark solid;
+    border: 2px $error solid;
   }
 }
 
@@ -18,7 +18,7 @@
 }
 
 .button {
-  @include default-btn($complimentary, $complimentary-dark);
+  @include default-btn($complementary, $complementary-dark);
   margin-bottom: 10px;
 }
 
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include default-btn($that-other-color-but-lite, $that-other-color);
+  @include default-btn($complementary-lite, $complementary-dark);
   width: auto;
   margin: 0 5px 5px 0;
 

@@ -3,7 +3,7 @@
 
 .form_container {
   padding: 10px;
-  border: 3px $complimentary solid;
+  border: 3px $accent solid;
   border-radius: 10px;
 }
 
@@ -23,12 +23,12 @@
   margin-bottom: 5px;
   border-radius: 3px;
   border: none;
-  border: 2px $that-other-color solid;
+  border: 2px $accent solid;
 }
 
 .input_container {
   padding: 10px;
-  background-color: $lite;
+  background-color: $base-lite;
   border-radius: 5px;
 
   input {
@@ -41,5 +41,5 @@
 }
 
 .submit_btn {
-  @include default-btn($that-other-color, $that-other-color-but-dark);
+  @include default-btn($complementary, $complementary-dark);
 }

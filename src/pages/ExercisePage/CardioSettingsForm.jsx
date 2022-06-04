@@ -8,7 +8,7 @@ const CardioSettingsForm = ({ exerciseData, setExerciseData }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (exerciseData.cardio_settings.includes(formData)) {
+    if (exerciseData.cardio_settings.includes(formData) || formData.length <= 0) {
       setError(true);
       return;
     }

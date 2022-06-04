@@ -11,12 +11,12 @@
 }
 
 .day {
-  @include default-btn(white, $complimentary-dark);
+  @include default-btn($base, $accent);
   width: auto;
   margin: 0 5px 5px 0;
 
   &.active {
-    color: $lite;
-    background-color: $complimentary-dark;
+    color: white;
+    background-color: $accent;
   }
 }

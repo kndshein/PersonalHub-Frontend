@@ -10,13 +10,13 @@
 .input {
   text-align: right;
   padding: 5px 7px;
-  border: 2px $that-other-color solid;
+  border: 2px $accent solid;
   border-radius: 5px;
   @include hide-num-input-arrows;
   &:disabled {
     border: none;
-    background-color: $lite;
-    color: $complimentary-dark;
+    background-color: $base-lite;
+    color: $base-dark;
   }
 }
 
@@ -75,11 +75,11 @@
 }
 
 .btn {
-  @include default-btn($complimentary, $complimentary-dark);
+  @include default-btn($accent, $base-dark);
 }
 
 .submit_btn {
-  @include default-btn($confirm, darken($confirm, 20%));
+  @include default-btn($complementary, $complementary-dark);
 }
 
 .btn_logo {

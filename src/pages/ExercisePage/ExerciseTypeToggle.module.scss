@@ -16,12 +16,11 @@
   margin: 0 5px 5px 0;
   border: none;
   border-radius: 5px;
-  color: $complimentary-dark;
-  background-color: $lite;
+  background-color: $base;
   @include click-scale;
 
   &.active {
-    color: $lite;
-    background-color: $complimentary-dark;
+    color: white;
+    background-color: $accent;
   }
 }

@@ -70,7 +70,7 @@ const Entry = ({ exercise, currDate }) => {
             )}
           </button>
           {showDetail && (
-            <div className={styles.expanded_container}>
+            <div className={`${styles.expanded_container} ${is_completed_today && styles.completed}`}>
               <PastEntries exercise={exercise} currDate={currDate} pastEntries={pastEntries} />
               <EntryForm
                 exercise={exercise}

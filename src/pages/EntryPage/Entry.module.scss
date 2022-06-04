@@ -5,16 +5,17 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  @include default-btn($base, $dark);
+  @include default-btn($base, $base-dark);
 
   &.completed {
-    @include default-btn($that-other-color, $that-other-color-but-dark);
+    color: $grey-dark;
+    @include default-btn($grey, $grey-dark);
     padding: 10px;
     height: auto;
 
     .set_rep span {
-      color: $that-other-color-but-dark;
-      background-color: $that-other-color-but-lite;
+      color: $grey-dark;
+      background-color: $grey-lite;
     }
   }
   padding: 10px;
@@ -25,15 +26,20 @@
 .expanded_container {
   padding: 10px;
   margin: -5px 0 25px 0;
-  background-color: $litegray;
+  background-color: $base-lite;
   border-radius: 5px;
+
+  &.completed {
+    background-color: $grey-lite;
+  }
 }
+
 .set_rep {
   span {
     padding: 3px 5px;
     margin-left: 5px;
     border-radius: 5px;
-    color: $complimentary-dark;
-    background-color: $lite;
+    color: $base-dark;
+    background-color: $base-lite;
   }
 }

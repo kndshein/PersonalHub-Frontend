@@ -18,8 +18,8 @@
   height: 100%;
   margin: 0 15px;
   border-radius: 7px;
-  background-color: $lite;
-  border: none;
+  background-color: $base;
+  border: 2px solid $accent;
   @include click-scale;
 }
 
@@ -31,12 +31,4 @@
   border-radius: 7px;
   background-color: $base;
   @include click-scale;
-}
-
-.exercise_list {
-  display: flex;
-  flex-flow: column;
-  padding: 10px;
-  background-color: $lite;
-  border-radius: 7px;
 }

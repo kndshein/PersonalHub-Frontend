@@ -1,12 +1,13 @@
-$lite: #f8edeb;
 $base: #f9dcc4;
-$accent: #fec89a;
-$dark: #ca987d;
-$complimentary-lite: #fcd5ce;
-$complimentary: #ffb5a7;
-$complimentary-dark: #8e3131;
-$that-other-color-but-lite: #bffeef;
-$that-other-color: #76f3d6;
-$that-other-color-but-dark: #277981;
-$litegray: rgb(239, 239, 239);
-$confirm: rgb(145, 234, 145);
+$base-lite: lighten($base, 10%);
+$base-dark: #ca987d;
+$accent: #ffb5a7;
+$complementary: #76f3d6;
+$complementary-lite: lighten($complementary, 15%);
+$complementary-dark: #277981;
+
+$grey: rgb(200, 200, 200);
+$grey-lite: rgb(240, 240, 240);
+$grey-dark: rgb(69, 69, 69);
+
+$error: rgb(155, 57, 57);
