@@ -8,6 +8,10 @@
   background-color: $base;
   border-radius: 3px;
   font-size: 0.7rem;
+
+  &.completed {
+    background-color: $grey;
+  }
 }
 
 .entry_values {

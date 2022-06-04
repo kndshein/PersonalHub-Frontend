@@ -15,8 +15,8 @@
   @include hide-num-input-arrows;
   &:disabled {
     border: none;
-    background-color: $base-lite;
-    color: $base-dark;
+    background-color: $grey;
+    color: $grey-dark;
   }
 }
 
