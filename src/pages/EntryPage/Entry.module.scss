@@ -23,19 +23,17 @@
     @include default-btn($that-other-color, $that-other-color-but-dark);
     padding: 10px;
     height: auto;
+
+    .set_rep span {
+      color: $that-other-color-but-dark;
+      background-color: $that-other-color-but-lite;
+    }
   }
   padding: 10px;
   height: auto;
 }
 
 .set_rep {
-  &.completed {
-    span {
-      color: $that-other-color-but-dark;
-      background-color: $that-other-color-but-lite;
-    }
-  }
-
   span {
     padding: 3px 5px;
     margin-left: 5px;

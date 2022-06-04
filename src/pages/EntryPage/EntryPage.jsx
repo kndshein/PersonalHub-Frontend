@@ -12,7 +12,6 @@ const EntryPage = () => {
   const [currDate, setCurrDate] = useState(getCurrDate());
   const [currDateString, setCurrDateString] = useState();
   const [loading, setLoading] = useState(true);
-  const [triggerReload, setTriggerReload] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -32,11 +31,7 @@ const EntryPage = () => {
       setSelectedCardio(cardio_res.data.result[0]);
       setLoading(false);
     })();
-  }, [currDate, triggerReload]);
-
-  useEffect(() => {
-    setTriggerReload(false);
-  }, [triggerReload]);
+  }, [currDate]);
 
   useEffect(() => {
     let date = new Date(currDate);
@@ -86,16 +81,14 @@ const EntryPage = () => {
       ) : (
         <>
           {exerciseList.map((exercise, idx) => (
-            <Entry key={idx} exercise={exercise} currDate={currDate} setTriggerReload={setTriggerReload} />
+            <Entry key={idx} exercise={exercise} currDate={currDate} />
           ))}
           <CardioDropdown
             cardioList={cardioList}
             selectedCardio={selectedCardio}
             setSelectedCardio={setSelectedCardio}
           />
-          {selectedCardio && (
-            <Entry exercise={selectedCardio} currDate={currDate} setTriggerReload={setTriggerReload} />
-          )}
+          {selectedCardio && <Entry exercise={selectedCardio} currDate={currDate} />}
         </>
       )}
     </>

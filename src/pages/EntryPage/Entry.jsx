@@ -4,7 +4,7 @@ import EntryForm from './EntryForm';
 import PastEntries from './PastEntries';
 import styles from './Entry.module.scss';
 
-const Entry = ({ exercise, currDate, setTriggerReload }) => {
+const Entry = ({ exercise, currDate }) => {
   const { exercise_type, exercise_name, is_completed_today } = exercise;
   const exercise_id = exercise._id;
 
@@ -12,6 +12,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const [pastValues, setPastValues] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pastEntries, setPastEntries] = useState([{}]);
+  const [isFakeCompleted, setIsFakeCompleted] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -48,19 +49,19 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
         <>
           <button
             onClick={() => setShowDetail(!showDetail)}
-            className={`${styles.name_btn} ${is_completed_today && styles.completed}`}
+            className={`${styles.name_btn} ${(is_completed_today || isFakeCompleted) && styles.completed}`}
           >
             <span>{exercise_name}</span>
             {pastValues && (
               <>
                 {exercise_type === 'Cardio' ? (
-                  <span className={`${styles.set_rep} ${is_completed_today && styles.completed}`}>
+                  <span className={styles.set_rep}>
                     {Object.values(pastValues).map((value, idx) => {
                       return <span key={idx}>{value}</span>;
                     })}
                   </span>
                 ) : (
-                  <span className={`${styles.set_rep} ${is_completed_today && styles.completed}`}>
+                  <span className={styles.set_rep}>
                     <span>{pastValues.set}</span>
                     <span>{pastValues.rep}</span>
                   </span>
@@ -76,7 +77,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
                 currDate={currDate}
                 pastValues={pastValues}
                 setShowDetail={setShowDetail}
-                setTriggerReload={setTriggerReload}
+                setIsFakeCompleted={setIsFakeCompleted}
               />
             </div>
           )}
