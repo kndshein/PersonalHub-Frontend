@@ -79,7 +79,7 @@
 }
 
 .submit_btn {
-  @include default-btn($that-other-color, $that-other-color-but-dark);
+  @include default-btn($confirm, darken($confirm, 20%));
 }
 
 .btn_logo {

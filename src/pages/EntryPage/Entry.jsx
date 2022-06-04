@@ -42,7 +42,7 @@ const Entry = ({ exercise, currDate }) => {
   }, [currDate, exercise]);
 
   return (
-    <section className={styles.container}>
+    <>
       {loading ? (
         <div>Loading</div>
       ) : (
@@ -70,7 +70,7 @@ const Entry = ({ exercise, currDate }) => {
             )}
           </button>
           {showDetail && (
-            <div className={styles.inner_container}>
+            <div className={styles.expanded_container}>
               <PastEntries exercise={exercise} currDate={currDate} pastEntries={pastEntries} />
               <EntryForm
                 exercise={exercise}
@@ -83,7 +83,7 @@ const Entry = ({ exercise, currDate }) => {
           )}
         </>
       )}
-    </section>
+    </>
   );
 };
 

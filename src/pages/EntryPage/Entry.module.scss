@@ -1,18 +1,6 @@
 @import '../../styles/color_palettes';
 @import '../../styles/util';
 
-.container {
-  background-color: white;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 7px;
-  border: 3px solid $base;
-}
-
-.inner_container {
-  margin-top: 10px;
-}
-
 .name_btn {
   cursor: pointer;
   display: flex;
@@ -30,9 +18,16 @@
     }
   }
   padding: 10px;
+  margin-bottom: 15px;
   height: auto;
 }
 
+.expanded_container {
+  padding: 10px;
+  margin: -5px 0 25px 0;
+  background-color: $litegray;
+  border-radius: 5px;
+}
 .set_rep {
   span {
     padding: 3px 5px;
