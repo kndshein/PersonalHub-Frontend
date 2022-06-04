@@ -8,10 +8,12 @@ import styles from './EntryPage.module.scss';
 const EntryPage = () => {
   const [exerciseList, setExerciseList] = useState([]);
   const [cardioList, setCardioList] = useState([]);
+  const [cardioEntriesList, setCardioEntriesList] = useState([]);
   const [selectedCardio, setSelectedCardio] = useState();
   const [currDate, setCurrDate] = useState(getCurrDate());
   const [currDateString, setCurrDateString] = useState();
   const [loading, setLoading] = useState(true);
+  const [triggerReload, setTriggerReload] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -27,11 +29,28 @@ const EntryPage = () => {
         `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise/list/cardio`,
         true
       );
-      setCardioList(cardio_res.data.result);
-      setSelectedCardio(cardio_res.data.result[0]);
+      let cardio_entries_res = await query(
+        'GET',
+        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/cardio/specific/${currDate}`,
+        true
+      );
+
+      let exercise_ids = [];
+      for (let entry of cardio_entries_res.data.result) {
+        exercise_ids.push(entry.exercise_id._id);
+      }
+
+      let filtered_cardio_res = cardio_res.data.result.filter((cardio) => !exercise_ids.includes(cardio._id));
+      setCardioList(filtered_cardio_res);
+      setSelectedCardio(filtered_cardio_res[0]);
+      setCardioEntriesList(cardio_entries_res.data.result);
       setLoading(false);
     })();
-  }, [currDate]);
+  }, [currDate, triggerReload]);
+
+  useEffect(() => {
+    setTriggerReload(false);
+  }, [triggerReload]);
 
   useEffect(() => {
     let date = new Date(currDate);
@@ -83,12 +102,24 @@ const EntryPage = () => {
           {exerciseList.map((exercise, idx) => (
             <Entry key={idx} exercise={exercise} currDate={currDate} />
           ))}
-          <CardioDropdown
-            cardioList={cardioList}
-            selectedCardio={selectedCardio}
-            setSelectedCardio={setSelectedCardio}
-          />
-          {selectedCardio && <Entry exercise={selectedCardio} currDate={currDate} />}
+          <section className={styles.cardio_container}>
+            <p>Cardio</p>
+            {cardioEntriesList.map((exercise, idx) => {
+              let passed_data = { ...exercise.exercise_id, is_completed_today: true };
+              return <Entry key={idx} exercise={passed_data} currDate={currDate} />;
+            })}
+
+            {selectedCardio && (
+              <>
+                <CardioDropdown
+                  cardioList={cardioList}
+                  selectedCardio={selectedCardio}
+                  setSelectedCardio={setSelectedCardio}
+                />
+                <Entry exercise={selectedCardio} currDate={currDate} setTriggerReload={setTriggerReload} />
+              </>
+            )}
+          </section>
         </>
       )}
     </>

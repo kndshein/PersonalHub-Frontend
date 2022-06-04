@@ -4,7 +4,7 @@ import EntryForm from './EntryForm';
 import PastEntries from './PastEntries';
 import styles from './Entry.module.scss';
 
-const Entry = ({ exercise, currDate }) => {
+const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const { exercise_type, exercise_name, is_completed_today } = exercise;
   const exercise_id = exercise._id;
 
@@ -78,6 +78,7 @@ const Entry = ({ exercise, currDate }) => {
                 pastValues={pastValues}
                 setShowDetail={setShowDetail}
                 setIsFakeCompleted={setIsFakeCompleted}
+                setTriggerReload={setTriggerReload}
               />
             </div>
           )}

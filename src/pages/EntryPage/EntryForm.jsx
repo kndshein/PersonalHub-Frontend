@@ -4,7 +4,14 @@ import { FiEdit2 } from 'react-icons/fi';
 import { query } from '../../util';
 import styles from './EntryForm.module.scss';
 
-const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsFakeCompleted }) => {
+const EntryForm = ({
+  exercise,
+  currDate,
+  pastValues,
+  setShowDetail,
+  setIsFakeCompleted,
+  setTriggerReload,
+}) => {
   const { exercise_settings, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
@@ -114,8 +121,12 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsFakeCom
     );
 
     if (res.status === 200) {
+      if (setTriggerReload) {
+        setTriggerReload(true);
+      } else {
+        setIsFakeCompleted(true);
+      }
       setShowDetail(false);
-      setIsFakeCompleted(true);
     }
   };
 

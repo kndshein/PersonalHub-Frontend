@@ -21,6 +21,10 @@
   padding: 10px;
   margin-bottom: 15px;
   height: auto;
+
+  &:last-child {
+    margin: 0;
+  }
 }
 
 .expanded_container {
