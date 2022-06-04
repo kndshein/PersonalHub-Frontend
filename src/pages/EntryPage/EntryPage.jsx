@@ -15,6 +15,29 @@ const EntryPage = () => {
   const [loading, setLoading] = useState(true);
   const [triggerReload, setTriggerReload] = useState(false);
 
+  const getAndSetCardioSection = async () => {
+    let cardio_res = await query(
+      'GET',
+      `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise/list/cardio`,
+      true
+    );
+    let cardio_entries_res = await query(
+      'GET',
+      `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/cardio/specific/${currDate}`,
+      true
+    );
+
+    let exercise_ids = [];
+    for (let entry of cardio_entries_res.data.result) {
+      exercise_ids.push(entry.exercise_id._id);
+    }
+
+    let filtered_cardio_res = cardio_res.data.result.filter((cardio) => !exercise_ids.includes(cardio._id));
+    setCardioList(filtered_cardio_res);
+    setSelectedCardio(filtered_cardio_res[0]);
+    setCardioEntriesList(cardio_entries_res.data.result);
+  };
+
   useEffect(() => {
     (async () => {
       let res = await query(
@@ -24,29 +47,14 @@ const EntryPage = () => {
         { date: currDate }
       );
       setExerciseList(res.data.result);
-      let cardio_res = await query(
-        'GET',
-        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise/list/cardio`,
-        true
-      );
-      let cardio_entries_res = await query(
-        'GET',
-        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/cardio/specific/${currDate}`,
-        true
-      );
-
-      let exercise_ids = [];
-      for (let entry of cardio_entries_res.data.result) {
-        exercise_ids.push(entry.exercise_id._id);
-      }
-
-      let filtered_cardio_res = cardio_res.data.result.filter((cardio) => !exercise_ids.includes(cardio._id));
-      setCardioList(filtered_cardio_res);
-      setSelectedCardio(filtered_cardio_res[0]);
-      setCardioEntriesList(cardio_entries_res.data.result);
+      await getAndSetCardioSection();
       setLoading(false);
     })();
-  }, [currDate, triggerReload]);
+  }, [currDate]);
+
+  useEffect(() => {
+    getAndSetCardioSection();
+  }, [triggerReload]);
 
   useEffect(() => {
     setTriggerReload(false);
