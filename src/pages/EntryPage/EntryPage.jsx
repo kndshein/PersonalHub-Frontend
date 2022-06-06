@@ -3,6 +3,7 @@ import { days_index, getCurrDate, query } from '../../util';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Entry from './Entry';
 import CardioDropdown from './CardioDropdown';
+import Weight from './Weight';
 import styles from './EntryPage.module.scss';
 
 const EntryPage = () => {
@@ -102,6 +103,7 @@ const EntryPage = () => {
         <div>Loading</div>
       ) : (
         <>
+          <Weight currDate={currDate} />
           {exerciseList.map((exercise, idx) => (
             <Entry key={idx} exercise={exercise} currDate={currDate} />
           ))}
