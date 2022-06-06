@@ -62,13 +62,21 @@
 
     input {
       text-align: right;
+      padding: 5px 10px;
       margin-bottom: 10px;
       height: 50px;
       width: 100%;
       font-size: 2rem;
+      border: 2px solid $accent;
+      border-radius: 5px;
 
       &[type='number'] {
         -moz-appearance: textfield;
+      }
+
+      &:disabled {
+        background-color: $grey;
+        border: none;
       }
     }
   }
@@ -80,4 +88,9 @@
 
 .submit_btn {
   @include default-btn($complementary, $complementary-dark);
+}
+
+.btn_logo {
+  color: white;
+  fill: white;
 }
