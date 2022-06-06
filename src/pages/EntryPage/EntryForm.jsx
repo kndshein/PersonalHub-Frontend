@@ -163,7 +163,7 @@ const EntryForm = ({
                   <section className={styles.set_rep}>
                     <input
                       type="number"
-                      inputmode="decimal"
+                      inputmode="numeric"
                       name="set"
                       id="set"
                       value={entry.entry_values.set}
@@ -173,7 +173,7 @@ const EntryForm = ({
                     />
                     <input
                       type="number"
-                      inputmode="decimal"
+                      inputmode="numeric"
                       name="rep"
                       id="rep"
                       value={entry.entry_values.rep}
