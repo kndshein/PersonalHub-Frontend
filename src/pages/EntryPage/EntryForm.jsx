@@ -146,6 +146,7 @@ const EntryForm = ({
                         <label htmlFor={setting}>{setting}</label>
                         <input
                           type="number"
+                          inputmode="decimal"
                           name={setting}
                           id={setting}
                           value={entry.cardio_values[setting] ?? ''}
@@ -162,6 +163,7 @@ const EntryForm = ({
                   <section className={styles.set_rep}>
                     <input
                       type="number"
+                      inputmode="decimal"
                       name="set"
                       id="set"
                       value={entry.entry_values.set}
@@ -171,6 +173,7 @@ const EntryForm = ({
                     />
                     <input
                       type="number"
+                      inputmode="decimal"
                       name="rep"
                       id="rep"
                       value={entry.entry_values.rep}
@@ -183,6 +186,7 @@ const EntryForm = ({
                   <section className={styles.qty_grp}>
                     <input
                       type="number"
+                      inputmode="decimal"
                       name="quantity"
                       id="quantity"
                       value={entry.entry_values.quantity}

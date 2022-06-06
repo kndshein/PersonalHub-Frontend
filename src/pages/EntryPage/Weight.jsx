@@ -82,7 +82,7 @@ const Weight = ({ currDate }) => {
           <form>
             <input
               type="number"
-              inputmode="numeric"
+              inputmode="decimal"
               name="weight_value"
               id="weight_value"
               value={currentWeight.weight_value}
