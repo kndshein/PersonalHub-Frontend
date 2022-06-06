@@ -62,19 +62,21 @@ const Weight = ({ currDate }) => {
     <section className={styles.container}>
       <h2 className={styles.h2}>Weight</h2>
       <section className={styles.inner_container}>
-        <section className={styles.past_container}>
-          <h3 className={styles.h3}>Past</h3>
-          <div className={styles.past_entries_container}>
-            {pastWeights.map((weight, idx) => {
-              return (
-                <p key={idx} className={styles.past_entry}>
-                  {getShortDateFromDate(weight.weight_date)}
-                  <span className={styles.weight}>{weight.weight_value} lb</span>
-                </p>
-              );
-            })}
-          </div>
-        </section>
+        {pastWeights.length > 0 && (
+          <section className={styles.past_container}>
+            <h3 className={styles.h3}>Past</h3>
+            <div className={styles.past_entries_container}>
+              {pastWeights.map((weight, idx) => {
+                return (
+                  <p key={idx} className={styles.past_entry}>
+                    {getShortDateFromDate(weight.weight_date)}
+                    <span className={styles.weight}>{weight.weight_value} lb</span>
+                  </p>
+                );
+              })}
+            </div>
+          </section>
+        )}
         <section className={styles.current_container}>
           <h3 className={styles.h3}>Current</h3>
           <form>
