@@ -21,21 +21,16 @@ const EntryPage = () => {
       `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/exercise/list/cardio`,
       true
     );
-    let cardio_entries_res = await query(
+    let cardio_exercises_res = await query(
       'GET',
       `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/cardio/specific/${currDate}`,
       true
     );
-
-    let exercise_ids = [];
-    for (let entry of cardio_entries_res.data.result) {
-      exercise_ids.push(entry.exercise_id._id);
-    }
-
+    let exercise_ids = cardio_exercises_res.data.result.map((exercise) => exercise._id);
     let filtered_cardio_res = cardio_res.data.result.filter((cardio) => !exercise_ids.includes(cardio._id));
     setCardioList(filtered_cardio_res);
     setSelectedCardio(filtered_cardio_res[0]);
-    setCardioEntriesList(cardio_entries_res.data.result);
+    setCardioEntriesList(cardio_exercises_res.data.result);
   };
 
   useEffect(() => {
@@ -113,10 +108,8 @@ const EntryPage = () => {
           <section className={styles.cardio_container}>
             <p>Cardio</p>
             {cardioEntriesList.map((exercise, idx) => {
-              let passed_data = { ...exercise.exercise_id, is_completed_today: true };
-              return <Entry key={idx} exercise={passed_data} currDate={currDate} />;
+              return <Entry key={idx} exercise={exercise} currDate={currDate} />;
             })}
-
             {selectedCardio && (
               <>
                 <CardioDropdown
