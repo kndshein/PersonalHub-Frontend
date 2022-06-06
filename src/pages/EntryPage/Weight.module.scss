@@ -1,0 +1,83 @@
+@import '../../styles/color_palettes';
+@import '../../styles/util';
+
+.container {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 3px solid $complementary;
+  border-radius: 5px;
+}
+
+.h2 {
+  margin: 0 0 10px 0;
+  color: $complementary-dark;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.h3 {
+  margin: 0 0 5px;
+  color: $base-dark;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.inner_container {
+  display: flex;
+}
+
+.past_container {
+  flex-basis: 100px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.past_entry {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+  background-color: $base-lite;
+  border-radius: 5px;
+
+  .weight {
+    padding: 0 3px;
+    background-color: $base;
+    border-radius: 5px;
+  }
+}
+
+.current_container {
+  flex-grow: 1;
+  width: 100%;
+
+  form {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+
+    input {
+      text-align: right;
+      margin-bottom: 10px;
+      height: 50px;
+      width: 100%;
+      font-size: 2rem;
+
+      &[type='number'] {
+        -moz-appearance: textfield;
+      }
+    }
+  }
+}
+
+.btn {
+  @include default-btn($accent, $base-dark);
+}
+
+.submit_btn {
+  @include default-btn($complementary, $complementary-dark);
+}
