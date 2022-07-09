@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { HiCheck } from 'react-icons/hi';
 import { FiEdit2 } from 'react-icons/fi';
-import { query } from '../../util';
+import { objValuesToFloat, query } from '../../util';
 import styles from './EntryForm.module.scss';
 
 const EntryForm = ({
@@ -97,10 +97,13 @@ const EntryForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     let data = { ...entry };
+
     if (exercise_type === 'Cardio') {
       delete data.entry_values;
+      objValuesToFloat(data.cardio_values); // Loop through cardio_values to sanitize floats
     } else {
       delete data.cardio_values;
+      objValuesToFloat(data.entry_values); // Loop through entry_values to sanitize floats
     }
     let query_method = 'PUT';
 
@@ -146,7 +149,7 @@ const EntryForm = ({
                         <label htmlFor={setting}>{setting}</label>
                         <input
                           type="number"
-                          inputmode="decimal"
+                          inputMode="decimal"
                           name={setting}
                           id={setting}
                           value={entry.cardio_values[setting] ?? ''}
@@ -163,7 +166,7 @@ const EntryForm = ({
                   <section className={styles.set_rep}>
                     <input
                       type="number"
-                      inputmode="numeric"
+                      inputMode="numeric"
                       name="set"
                       id="set"
                       value={entry.entry_values.set}
@@ -173,7 +176,7 @@ const EntryForm = ({
                     />
                     <input
                       type="number"
-                      inputmode="numeric"
+                      inputMode="numeric"
                       name="rep"
                       id="rep"
                       value={entry.entry_values.rep}
@@ -186,7 +189,7 @@ const EntryForm = ({
                   <section className={styles.qty_grp}>
                     <input
                       type="number"
-                      inputmode="decimal"
+                      inputMode="decimal"
                       name="quantity"
                       id="quantity"
                       value={entry.entry_values.quantity}

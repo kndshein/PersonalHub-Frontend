@@ -32,6 +32,12 @@ const isLoggedIn = async () => {
   }
 };
 
+const objValuesToFloat = (obj) => {
+  for (let key of Object.keys(obj)) {
+    obj[key] = parseFloat(obj[key]);
+  }
+};
+
 const query = async (method, url, isTokenized, data) => {
   let query_data = { method: method, url: url, data: data };
   if (isTokenized) query_data.headers = { token: localStorage.getItem('token') };
@@ -45,4 +51,4 @@ const query = async (method, url, isTokenized, data) => {
   }
 };
 
-export { days_index, getCurrDate, getShortDateFromDate, isLoggedIn, query };
+export { days_index, getCurrDate, getShortDateFromDate, isLoggedIn, objValuesToFloat, query };
