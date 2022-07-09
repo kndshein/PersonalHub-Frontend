@@ -13,14 +13,28 @@
     padding: 10px;
     height: auto;
 
+    &.active {
+      background-color: $grey-dark;
+    }
+
     .set_rep span {
       color: $grey-dark;
       background-color: $grey-lite;
     }
   }
+
   padding: 10px;
   margin-bottom: 15px;
   height: auto;
+
+  &.active {
+    color: white;
+    background-color: $base-dark;
+
+    .exercise_name {
+      font-weight: bold;
+    }
+  }
 
   &:last-child {
     margin: 0;

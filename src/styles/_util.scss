@@ -34,8 +34,11 @@
   border: none;
   border-radius: 5px;
   @include click-scale;
-  &:hover {
-    color: white;
-    background-color: $color_accent;
+
+  @media (hover: hover) {
+    &:hover {
+      color: white;
+      background-color: $color_accent;
+    }
   }
 }

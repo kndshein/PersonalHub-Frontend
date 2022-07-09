@@ -49,9 +49,11 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
         <>
           <button
             onClick={() => setShowDetail(!showDetail)}
-            className={`${styles.name_btn} ${(is_completed_today || isFakeCompleted) && styles.completed}`}
+            className={`${styles.name_btn} ${(is_completed_today || isFakeCompleted) && styles.completed} ${
+              showDetail && styles.active
+            }`}
           >
-            <span>{exercise_name}</span>
+            <span className={styles.exercise_name}>{exercise_name}</span>
             {pastValues && (
               <>
                 {exercise_type === 'Cardio' ? (
