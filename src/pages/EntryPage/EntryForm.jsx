@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { HiCheck } from 'react-icons/hi';
 import { FiEdit2 } from 'react-icons/fi';
+import {FaCheck} from 'react-icons/fa';
+import {MdDelete} from 'react-icons/md';
 import { objValuesToFloat, query } from '../../util';
 import styles from './EntryForm.module.scss';
 
@@ -56,7 +57,8 @@ const EntryForm = ({
         if (cardio_settings) {
           data.cardio_values = {};
           for (let setting of cardio_settings) {
-            data.cardio_values[setting] = pastValues && pastValues[setting] ? pastValues[setting] : '';
+            data.cardio_values[setting] =
+              pastValues && pastValues[setting] ? pastValues[setting] : '';
           }
         } else {
           data = {
@@ -75,27 +77,43 @@ const EntryForm = ({
     })();
   }, [currDate, exercise]);
 
-  const handleChange = (isCardio, event) => {
+  const handleChange = (isCardio, evt) => {
     if (isCardio) {
       setEntry({
         ...entry,
-        cardio_values: { ...entry.cardio_values, [event.target.name]: event.target.value },
+        cardio_values: {
+          ...entry.cardio_values,
+          [evt.target.name]: evt.target.value,
+        },
       });
     } else {
       setEntry({
         ...entry,
-        entry_values: { ...entry.entry_values, [event.target.name]: event.target.value },
+        entry_values: {
+          ...entry.entry_values,
+          [evt.target.name]: evt.target.value,
+        },
       });
     }
   };
 
-  const handleEdit = (event) => {
-    event.preventDefault();
+  const handleEdit = (evt) => {
+    evt.preventDefault();
     setAllowEdit(true);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleDelete = async (evt) => {
+    evt.preventDefault();
+    let res = await query('DELETE', `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/${entry.entry_id}`, true);
+
+    if (res.status === 200) {
+      setTriggerReload(true);
+      setShowDetail(true);
+    }
+  }
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
     let data = { ...entry };
 
     if (exercise_type === 'Cardio') {
@@ -153,7 +171,7 @@ const EntryForm = ({
                           name={setting}
                           id={setting}
                           value={entry.cardio_values[setting] ?? ''}
-                          onChange={(event) => handleChange(true, event)}
+                          onChange={(evt) => handleChange(true, evt)}
                           disabled={!allowEdit}
                           className={styles.input}
                         />
@@ -170,7 +188,7 @@ const EntryForm = ({
                       name="set"
                       id="set"
                       value={entry.entry_values.set}
-                      onChange={(event) => handleChange(false, event)}
+                      onChange={(evt) => handleChange(false, evt)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
@@ -180,7 +198,7 @@ const EntryForm = ({
                       name="rep"
                       id="rep"
                       value={entry.entry_values.rep}
-                      onChange={(event) => handleChange(false, event)}
+                      onChange={(evt) => handleChange(false, evt)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
@@ -193,7 +211,7 @@ const EntryForm = ({
                       name="quantity"
                       id="quantity"
                       value={entry.entry_values.quantity}
-                      onChange={(event) => handleChange(false, event)}
+                      onChange={(evt) => handleChange(false, evt)}
                       disabled={!allowEdit}
                       className={styles.input}
                     />
@@ -204,13 +222,21 @@ const EntryForm = ({
             </section>
             <section className={styles.buttons_container}>
               {isNew || allowEdit ? (
-                <button className={`${styles.btn} ${styles.submit_btn}`} onClick={handleSubmit}>
-                  <HiCheck size={20} className={styles.btn_logo} />
+                <button
+                  className={`${styles.btn} ${styles.submit_btn}`}
+                  onClick={handleSubmit}
+                >
+                  <FaCheck size={15} className={styles.btn_logo} />
                 </button>
               ) : (
-                <button className={styles.btn} onClick={handleEdit}>
-                  <FiEdit2 size={15} className={styles.btn_logo} />
-                </button>
+                <>
+                  <button className={styles.btn} onClick={handleEdit}>
+                    <FiEdit2 size={13} className={styles.btn_logo} />
+                  </button>
+                  <button className={styles.del_btn} onClick={handleDelete}>
+                    <MdDelete size={16} className={styles.btn_logo} />
+                  </button>
+                </>
               )}
             </section>
           </form>

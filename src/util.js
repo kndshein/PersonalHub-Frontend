@@ -39,7 +39,8 @@ const objValuesToFloat = (obj) => {
 };
 
 const query = async (method, url, isTokenized, data) => {
-  let query_data = { method: method, url: url, data: data };
+  let query_data = { method: method, url: url };
+  if (data) query_data.data = data;
   if (isTokenized) query_data.headers = { token: localStorage.getItem('token') };
 
   try {

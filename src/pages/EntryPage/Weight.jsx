@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getShortDateFromDate, query } from '../../util';
-import { HiCheck } from 'react-icons/hi';
+import {FaCheck} from 'react-icons/fa';
 import { FiEdit2 } from 'react-icons/fi';
 import styles from './Weight.module.scss';
 
@@ -91,7 +91,7 @@ const Weight = ({ currDate }) => {
             />
             {allowEdit ? (
               <button onClick={handleSubmit} className={styles.submit_btn}>
-                <HiCheck size={20} className={styles.btn_logo} />
+                <FaCheck size={15} className={styles.btn_logo} />
               </button>
             ) : (
               <button onClick={handleEdit} className={styles.btn}>

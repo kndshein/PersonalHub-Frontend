@@ -78,6 +78,10 @@
   @include default-btn($accent, $base-dark);
 }
 
+.del_btn {
+  @include default-btn($error, $error-dark);
+}
+
 .submit_btn {
   @include default-btn($complementary, $complementary-dark);
 }
