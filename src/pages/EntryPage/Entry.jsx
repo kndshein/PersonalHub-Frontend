@@ -12,7 +12,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const [pastValues, setPastValues] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pastEntries, setPastEntries] = useState([{}]);
-  const [isFakeCompleted, setIsFakeCompleted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(is_completed_today);
 
   useEffect(() => {
     setLoading(true);
@@ -49,9 +49,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
         <>
           <button
             onClick={() => setShowDetail(!showDetail)}
-            className={`${styles.name_btn} ${(is_completed_today || isFakeCompleted) && styles.completed} ${
-              showDetail && styles.active
-            }`}
+            className={`${styles.name_btn} ${isCompleted && styles.completed} ${showDetail && styles.active}`}
           >
             <span className={styles.exercise_name}>{exercise_name}</span>
             {pastValues && (
@@ -72,14 +70,19 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
             )}
           </button>
           {showDetail && (
-            <div className={`${styles.expanded_container} ${is_completed_today && styles.completed}`}>
-              <PastEntries exercise={exercise} currDate={currDate} pastEntries={pastEntries} />
+            <div className={`${styles.expanded_container} ${isCompleted && styles.completed}`}>
+              <PastEntries
+                exercise={exercise}
+                currDate={currDate}
+                pastEntries={pastEntries}
+                isCompleted={isCompleted}
+              />
               <EntryForm
                 exercise={exercise}
                 currDate={currDate}
                 pastValues={pastValues}
                 setShowDetail={setShowDetail}
-                setIsFakeCompleted={setIsFakeCompleted}
+                setIsCompleted={setIsCompleted}
                 setTriggerReload={setTriggerReload}
               />
             </div>

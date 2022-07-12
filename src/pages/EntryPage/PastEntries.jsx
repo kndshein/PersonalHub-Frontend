@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './PastEntries.module.scss';
 import { getShortDateFromDate } from '../../util';
 
-const PastEntries = ({ exercise, pastEntries }) => {
-  const { exercise_type, exercise_settings, is_completed_today } = exercise;
+const PastEntries = ({ exercise, pastEntries, isCompleted }) => {
+  const { exercise_type, exercise_settings } = exercise;
 
   return (
     <ul className={styles.past_list}>
       {pastEntries.map((entry) => {
         return (
-          <li key={entry._id} className={`${styles.entry} ${is_completed_today && styles.completed}`}>
+          <li key={entry._id} className={`${styles.entry} ${isCompleted && styles.completed}`}>
             <span className={styles.entry_values}>{getShortDateFromDate(entry.entry_date)}</span>
             {exercise_type === 'Cardio' ? (
               <>

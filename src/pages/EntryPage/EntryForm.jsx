@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FiEdit2 } from 'react-icons/fi';
-import {FaCheck} from 'react-icons/fa';
-import {MdDelete} from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import { objValuesToFloat, query } from '../../util';
 import styles from './EntryForm.module.scss';
 
-const EntryForm = ({
-  exercise,
-  currDate,
-  pastValues,
-  setShowDetail,
-  setIsFakeCompleted,
-  setTriggerReload,
-}) => {
+const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsCompleted, setTriggerReload }) => {
   const { exercise_settings, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
@@ -57,8 +50,7 @@ const EntryForm = ({
         if (cardio_settings) {
           data.cardio_values = {};
           for (let setting of cardio_settings) {
-            data.cardio_values[setting] =
-              pastValues && pastValues[setting] ? pastValues[setting] : '';
+            data.cardio_values[setting] = pastValues && pastValues[setting] ? pastValues[setting] : '';
           }
         } else {
           data = {
@@ -104,13 +96,21 @@ const EntryForm = ({
 
   const handleDelete = async (evt) => {
     evt.preventDefault();
-    let res = await query('DELETE', `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/${entry.entry_id}`, true);
+    let res = await query(
+      'DELETE',
+      `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/${entry.entry_id}`,
+      true
+    );
 
     if (res.status === 200) {
-      setTriggerReload(true);
-      setShowDetail(true);
+      if (exercise_type === 'Cardio') {
+        setTriggerReload(true);
+      } else {
+        setIsCompleted(false);
+      }
+      setShowDetail(false);
     }
-  }
+  };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -142,10 +142,10 @@ const EntryForm = ({
     );
 
     if (res.status === 200) {
-      if (setTriggerReload) {
+      if (exercise_type === 'Cardio') {
         setTriggerReload(true);
       } else {
-        setIsFakeCompleted(true);
+        setIsCompleted(true);
       }
       setShowDetail(false);
     }
@@ -222,10 +222,7 @@ const EntryForm = ({
             </section>
             <section className={styles.buttons_container}>
               {isNew || allowEdit ? (
-                <button
-                  className={`${styles.btn} ${styles.submit_btn}`}
-                  onClick={handleSubmit}
-                >
+                <button className={`${styles.btn} ${styles.submit_btn}`} onClick={handleSubmit}>
                   <FaCheck size={15} className={styles.btn_logo} />
                 </button>
               ) : (

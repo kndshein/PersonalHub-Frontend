@@ -110,7 +110,14 @@ const EntryPage = () => {
           <section className={styles.cardio_container}>
             <p>Cardio</p>
             {cardioEntriesList.map((exercise, idx) => {
-              return <Entry key={idx} exercise={exercise} currDate={currDate} />;
+              return (
+                <Entry
+                  key={idx}
+                  exercise={exercise}
+                  currDate={currDate}
+                  setTriggerReload={setTriggerReload}
+                />
+              );
             })}
             {selectedCardio && (
               <>
