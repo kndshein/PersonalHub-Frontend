@@ -18,9 +18,25 @@
   height: 100%;
   margin: 0 15px;
   border-radius: 7px;
-  background-color: $base;
-  border: 2px solid $accent;
+  background-color: $base-lite;
+  border: none;
   @include click-scale;
+
+  .day {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: bold;
+    color: $base-dark;
+  }
+
+  .date {
+    padding: 3px 5px;
+    margin-left: 5px;
+    color: $base-dark;
+    letter-spacing: 0.05rem;
+    background-color: white;
+    border-radius: 5px;
+  }
 }
 
 .nav_button {
@@ -29,8 +45,12 @@
   width: 50px;
   padding: 10px;
   border-radius: 7px;
-  background-color: $base;
+  background-color: $base-lite;
   @include click-scale;
+
+  polyline {
+    stroke: $base-dark;
+  }
 }
 
 .cardio_container {

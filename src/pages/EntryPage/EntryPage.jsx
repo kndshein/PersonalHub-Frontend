@@ -12,7 +12,7 @@ const EntryPage = () => {
   const [cardioEntriesList, setCardioEntriesList] = useState([]);
   const [selectedCardio, setSelectedCardio] = useState();
   const [currDate, setCurrDate] = useState(getCurrDate());
-  const [currDateString, setCurrDateString] = useState();
+  const [currDateData, setCurrDateData] = useState({ day: null, month: null, date: null });
   const [loading, setLoading] = useState(true);
   const [triggerReload, setTriggerReload] = useState(false);
 
@@ -58,7 +58,11 @@ const EntryPage = () => {
 
   useEffect(() => {
     let date = new Date(currDate);
-    setCurrDateString(`${days_index[date.getUTCDay()]} (${date.getUTCMonth() + 1}/${date.getUTCDate()})`);
+    setCurrDateData({
+      day: days_index[date.getUTCDay()],
+      month: date.getUTCMonth() + 1,
+      date: date.getUTCDate(),
+    });
   }, [currDate]);
 
   const handleDayChange = (direction) => {
@@ -95,7 +99,10 @@ const EntryPage = () => {
       <section className={styles.day_nav}>
         <GrFormPrevious role="button" className={styles.nav_button} onClick={() => handleDayChange('prev')} />
         <button className={styles.current_date} onClick={() => handleDayChange('today')}>
-          {currDateString}
+          <span className={styles.day}>{currDateData.day}</span>
+          <span className={styles.date}>
+            {currDateData.month}/{currDateData.date}
+          </span>
         </button>
         <GrFormNext role="button" className={styles.nav_button} onClick={() => handleDayChange('next')} />
       </section>
