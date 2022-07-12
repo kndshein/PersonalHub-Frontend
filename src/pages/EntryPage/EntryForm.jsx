@@ -5,7 +5,15 @@ import { MdDelete } from 'react-icons/md';
 import { objValuesToFloat, query } from '../../util';
 import styles from './EntryForm.module.scss';
 
-const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsCompleted, setTriggerReload }) => {
+const EntryForm = ({
+  exercise,
+  currDate,
+  pastValues,
+  setShowDetail,
+  setIsCompleted,
+  setTriggerReload,
+  setTriggerEntryReload,
+}) => {
   const { exercise_settings, exercise_type, cardio_settings } = exercise;
   const exercise_id = exercise._id;
 
@@ -107,6 +115,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsComplet
         setTriggerReload(true);
       } else {
         setIsCompleted(false);
+        setTriggerEntryReload(true);
       }
       setShowDetail(false);
     }
@@ -146,6 +155,7 @@ const EntryForm = ({ exercise, currDate, pastValues, setShowDetail, setIsComplet
         setTriggerReload(true);
       } else {
         setIsCompleted(true);
+        setTriggerEntryReload(true);
       }
       setShowDetail(false);
     }

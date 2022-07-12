@@ -13,21 +13,31 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
   const [loading, setLoading] = useState(true);
   const [pastEntries, setPastEntries] = useState([{}]);
   const [isCompleted, setIsCompleted] = useState(is_completed_today);
+  const [triggerEntryReload, setTriggerEntryReload] = useState(false);
 
   useEffect(() => {
     setLoading(true);
   }, [exercise]);
 
   useEffect(() => {
+    setTriggerEntryReload(false);
+  }, [triggerEntryReload]);
+
+  useEffect(() => {
     (async () => {
       let res = await query(
         'GET',
-        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/past/${currDate}/${exercise_id}/3`,
+        `${process.env.REACT_APP_BACKEND_URL}/projectcataphract/entry/past/${currDate}/${exercise_id}/4`,
         true,
         { date: currDate }
       );
       if (res.data.result.length) {
-        let first_value = res.data.result[0];
+        let first_value;
+        if (is_completed_today) {
+          first_value = res.data.result.shift();
+        } else {
+          first_value = res.data.result[0];
+        }
         if (exercise_type === 'Cardio') {
           setPastValues(first_value.cardio_values);
         } else {
@@ -39,7 +49,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
       setPastEntries(res.data.result);
       setLoading(false);
     })();
-  }, [currDate, exercise]);
+  }, [currDate, exercise, triggerEntryReload]);
 
   return (
     <>
@@ -84,6 +94,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
                 setShowDetail={setShowDetail}
                 setIsCompleted={setIsCompleted}
                 setTriggerReload={setTriggerReload}
+                setTriggerEntryReload={setTriggerEntryReload}
               />
             </div>
           )}
