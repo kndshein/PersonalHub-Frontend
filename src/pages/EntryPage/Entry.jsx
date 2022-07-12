@@ -33,7 +33,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
       );
       if (res.data.result.length) {
         let first_value;
-        if (is_completed_today) {
+        if (isCompleted) {
           first_value = res.data.result.shift();
         } else {
           first_value = res.data.result[0];
