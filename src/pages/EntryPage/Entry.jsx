@@ -37,6 +37,7 @@ const Entry = ({ exercise, currDate, setTriggerReload }) => {
           first_value = res.data.result.shift();
         } else {
           first_value = res.data.result[0];
+          if (res.data.result.length > 3) res.data.result.pop();
         }
         if (exercise_type === 'Cardio') {
           setPastValues(first_value.cardio_values);
